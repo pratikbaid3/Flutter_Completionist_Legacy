@@ -9,25 +9,28 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+          primaryColor: Color(0xff202020),
+          scaffoldBackgroundColor: Color(0xff202020),
+          accentColor: Color(0xFF2063E9)),
       home: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Expanded(
+            /**Expanded(
               child: Container(
                 child: FlareActor("assets/anim.flr",
                     alignment: Alignment.center,
                     fit: BoxFit.contain,
                     animation: "idle"),
               ),
-            ),
+            ),**/
             Row(
               children: <Widget>[
                 Expanded(
                   child: Container(
                     child: SizedBox(
-                      height: 90,
+                      height: 75,
                       width: double.infinity,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -39,8 +42,8 @@ class OnBoarding extends StatelessWidget {
                                   "Sign up",
                                   style: TextStyle(
                                       color: Color(0xFFA6A6A6),
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ),
@@ -57,9 +60,9 @@ class OnBoarding extends StatelessWidget {
                                 child: Text(
                                   "Sign in",
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ),
@@ -68,7 +71,7 @@ class OnBoarding extends StatelessWidget {
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Color(0xFF2063E9),
                     ),
                   ),
                 )
