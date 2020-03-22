@@ -23,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
   Widget _LoginBtn() {
     return Container(
       width: double.infinity,
