@@ -3,7 +3,7 @@ import 'package:game_trophy_manager/reusable_elements.dart';
 import 'package:game_trophy_manager/signup_page.dart';
 
 class LoginPage extends StatelessWidget {
-  Widget _buildForgotPasswordBtn() {
+  Widget _ForgotPasswordBtn() {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLoginBtn() {
+  Widget _LoginBtn() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 25),
@@ -39,6 +39,85 @@ class LoginPage extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
       ),
+    );
+  }
+
+  Widget _EmailTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Email',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextFormField(
+            cursorColor: Colors.white,
+            validator: (value) =>
+                value.isEmpty ? 'Email can\'t be empty' : null,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.email,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Email',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _PasswordTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Password',
+          style: kLabelStyle,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextFormField(
+            cursorColor: Colors.white,
+            validator: (value) =>
+                value.isEmpty ? 'Password can\'t be empty' : null,
+            obscureText: true,
+            keyboardType: TextInputType.visiblePassword,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Password',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -70,15 +149,15 @@ class LoginPage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        kEmailTF,
+                        _EmailTF(),
                         SizedBox(
                           height: 20,
                         ),
-                        kPasswordTF,
-                        _buildForgotPasswordBtn(),
+                        _PasswordTF(),
+                        _ForgotPasswordBtn(),
                       ],
                     ),
-                    _buildLoginBtn(),
+                    _LoginBtn(),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[

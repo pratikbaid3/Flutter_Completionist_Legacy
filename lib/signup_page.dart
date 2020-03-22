@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'reusable_elements.dart';
 
 class SignupPage extends StatelessWidget {
-  Widget _buildSignupBtn() {
+  Widget _SignupBtn() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 25),
@@ -26,7 +26,7 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  Widget _buildReEnterPassword() {
+  Widget _ReEnterPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -43,6 +43,7 @@ class SignupPage extends StatelessWidget {
           height: 60.0,
           child: TextField(
             obscureText: true,
+            cursorColor: Colors.white,
             keyboardType: TextInputType.visiblePassword,
             style: TextStyle(
               color: Colors.white,
@@ -64,7 +65,7 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  Widget _buildGamerTagTF() {
+  Widget _GamerTagTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -81,6 +82,7 @@ class SignupPage extends StatelessWidget {
           height: 60.0,
           child: TextField(
             keyboardType: TextInputType.text,
+            cursorColor: Colors.white,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -92,7 +94,86 @@ class SignupPage extends StatelessWidget {
                 Icons.face,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Gamer Tag',
+              hintText: 'Enter a Gamer ID ',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _EmailTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Email',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextFormField(
+            cursorColor: Colors.white,
+            validator: (value) =>
+                value.isEmpty ? 'Email can\'t be empty' : null,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.email,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Email',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _PasswordTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Password',
+          style: kLabelStyle,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextFormField(
+            cursorColor: Colors.white,
+            validator: (value) =>
+                value.isEmpty ? 'Password can\'t be empty' : null,
+            obscureText: true,
+            keyboardType: TextInputType.visiblePassword,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Password',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -129,26 +210,26 @@ class SignupPage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _buildGamerTagTF(),
+                        _GamerTagTF(),
                         SizedBox(
                           height: 20,
                         ),
-                        kEmailTF,
+                        _EmailTF(),
                         SizedBox(
                           height: 20,
                         ),
-                        kPasswordTF,
+                        _PasswordTF(),
                         SizedBox(
                           height: 20,
                         ),
-                        _buildReEnterPassword(),
+                        _ReEnterPassword(),
                         SizedBox(
                           height: 20,
                         )
                         //_buildForgotPasswordBtn(),
                       ],
                     ),
-                    _buildSignupBtn(),
+                    _SignupBtn(),
                   ],
                 ),
               ),
