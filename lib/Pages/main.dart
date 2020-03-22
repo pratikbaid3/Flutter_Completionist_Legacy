@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:game_trophy_manager/login_page.dart';
-import 'package:game_trophy_manager/signup_page.dart';
+import 'package:game_trophy_manager/Pages/login_page.dart';
+import 'package:game_trophy_manager/Pages/signup_page.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(OnBoarding());
@@ -11,11 +12,18 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData.dark().copyWith(
-            primaryColor: Color(0xff202020),
-            scaffoldBackgroundColor: Color(0xff202020),
-            accentColor: Color(0xFF3F8AE1)),
-        home: OnBoardingPage());
+      theme: ThemeData.dark().copyWith(
+          primaryColor: Color(0xff202020),
+          scaffoldBackgroundColor: Color(0xff202020),
+          accentColor: Color(0xFF3F8AE1)),
+      initialRoute: '/OnBoardingPage',
+      routes: {
+        '/OnBoardingPage': (context) => OnBoardingPage(),
+        '/SignupPage': (context) => SignupPage(),
+        '/LoginPage': (context) => LoginPage(),
+        '/HomePage': (context) => HomePage(),
+      },
+    );
   }
 }
 
@@ -51,14 +59,7 @@ class OnBoardingPage extends StatelessWidget {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return SignupPage();
-                                        },
-                                      ),
-                                    );
+                                    Navigator.pushNamed(context, '/SignupPage');
                                   },
                                   child: Container(
                                     child: Center(
@@ -82,14 +83,7 @@ class OnBoardingPage extends StatelessWidget {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return LoginPage();
-                                        },
-                                      ),
-                                    );
+                                    Navigator.pushNamed(context, "/LoginPage");
                                   },
                                   child: Container(
                                     child: Center(

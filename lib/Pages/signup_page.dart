@@ -1,37 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:game_trophy_manager/reusable_elements.dart';
-import 'package:game_trophy_manager/signup_page.dart';
+import '../Utilities/reusable_elements.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
-  Widget _ForgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: FlatButton(
-        onPressed: () {
-          print("Forgot Password?");
-        },
-        child: Text(
-          'Forgot Password?',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }
+class SignupPage extends StatefulWidget {
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
 
-  Widget _LoginBtn() {
+class _SignupPageState extends State<SignupPage> {
+  Widget _SignupBtn() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 25),
       child: RaisedButton(
         padding: EdgeInsets.all(15),
-        onPressed: () {
-          print("Login Pressed");
+        onPressed: () async {
+          print("SignUp Pressed");
+
+          if (password == rePassword) {
+            print("Password verification successful");
+            print(email);
+            print(password);
+            print(gamerTag);
+            try {
+              final newUser = await _auth.createUserWithEmailAndPassword(
+                  email: email, password: password);
+
+              if (newUser != null) {
+                Navigator.pushNamed(context, '/HomePage');
+              }
+            } catch (e) {
+              print(e);
+            }
+          }
         },
         elevation: 6,
         color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Text(
-          'LOGIN',
+          'SIGNUP',
           style: TextStyle(
               color: Color(0XFF527DAA),
               letterSpacing: 1.5,
@@ -39,6 +46,89 @@ class LoginPage extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
       ),
+    );
+  }
+
+  Widget _ReEnterPassword() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Password',
+          style: kLabelStyle,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            onChanged: (value) {
+              rePassword = value;
+            },
+            obscureText: true,
+            cursorColor: Colors.white,
+            keyboardType: TextInputType.visiblePassword,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              hintText: 'Re-Enter your Password',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _GamerTagTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Gamer Tag',
+          style: kLabelStyle,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            onChanged: (value) {
+              gamerTag = value;
+            },
+            keyboardType: TextInputType.text,
+            cursorColor: Colors.white,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.face,
+                color: Colors.white,
+              ),
+              hintText: 'Enter a Gamer ID ',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -56,6 +146,9 @@ class LoginPage extends StatelessWidget {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextFormField(
+            onChanged: (value) {
+              email = value;
+            },
             cursorColor: Colors.white,
             validator: (value) =>
                 value.isEmpty ? 'Email can\'t be empty' : null,
@@ -96,6 +189,9 @@ class LoginPage extends StatelessWidget {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextFormField(
+            onChanged: (value) {
+              password = value;
+            },
             cursorColor: Colors.white,
             validator: (value) =>
                 value.isEmpty ? 'Password can\'t be empty' : null,
@@ -121,12 +217,19 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  String email;
+  String password;
+  String gamerTag;
+  String rePassword;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Sign In',
+            'Sign Up',
             style: TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
@@ -149,39 +252,26 @@ class LoginPage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        _GamerTagTF(),
+                        SizedBox(
+                          height: 20,
+                        ),
                         _EmailTF(),
                         SizedBox(
                           height: 20,
                         ),
                         _PasswordTF(),
-                        _ForgotPasswordBtn(),
-                      ],
-                    ),
-                    _LoginBtn(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "- OR -",
-                          style: TextStyle(fontSize: 15),
-                        ),
                         SizedBox(
                           height: 20,
                         ),
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return SignupPage();
-                            }));
-                          },
-                          child: Text(
-                            "I dont have a account yet!",
-                            style: kLabelStyle,
-                          ),
+                        _ReEnterPassword(),
+                        SizedBox(
+                          height: 20,
                         )
+                        //_buildForgotPasswordBtn(),
                       ],
                     ),
+                    _SignupBtn(),
                   ],
                 ),
               ),
