@@ -23,123 +23,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  Widget _LoginBtn() {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 25),
-      child: RaisedButton(
-        padding: EdgeInsets.all(15),
-        onPressed: () async {
-          print("Login Pressed");
-          try {
-            var user = await _auth.signInWithEmailAndPassword(
-                email: email, password: password);
-            if (user != null) {
-              Navigator.pushNamed(context, '/HomePage');
-            }
-          } catch (e) {
-            print(e);
-          }
-        },
-        elevation: 6,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        child: Text(
-          'LOGIN',
-          style: TextStyle(
-              color: Color(0XFF527DAA),
-              letterSpacing: 1.5,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-
-  Widget _EmailTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Email',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextFormField(
-            onChanged: (value) {
-              email = value;
-            },
-            cursorColor: Colors.white,
-            validator: (value) =>
-                value.isEmpty ? 'Email can\'t be empty' : null,
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.email,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Email',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _PasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Password',
-          style: kLabelStyle,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextFormField(
-            onChanged: (value) {
-              password = value;
-            },
-            cursorColor: Colors.white,
-            validator: (value) =>
-                value.isEmpty ? 'Password can\'t be empty' : null,
-            obscureText: true,
-            keyboardType: TextInputType.visiblePassword,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Password',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        )
-      ],
-    );
-  }
 
   String email;
   String password;
@@ -174,15 +57,53 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _EmailTF(),
+                        kReusableTextField(
+                          columnLabel: "Email",
+                          textFieldIcon: Icon(
+                            Icons.email,
+                            color: Colors.white,
+                          ),
+                          emptyTextWarning: "Email can\'t be empty",
+                          hintText: 'Enter your Email',
+                          onChangeText: (value) {
+                            email = value;
+                            print(email);
+                          },
+                        ),
                         SizedBox(
                           height: 20,
                         ),
-                        _PasswordTF(),
+                        kReusablePasswordTextField(
+                          columnLabel: 'Password',
+                          emptyTextWarning: 'Password can\'t be empty',
+                          hintText: 'Enter your Password',
+                          onChangeText: (value) {
+                            password = value;
+                            print(password);
+                          },
+                          textFieldIcon: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          ),
+                        ),
                         _ForgotPasswordBtn(),
                       ],
                     ),
-                    _LoginBtn(),
+                    kReusableBtn(
+                      onPressed: () async {
+                        print("Login Pressed");
+                        try {
+                          var user = await _auth.signInWithEmailAndPassword(
+                              email: email, password: password);
+                          if (user != null) {
+                            Navigator.pushNamed(context, '/HomePage');
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
+                      text: "LOGIN",
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[

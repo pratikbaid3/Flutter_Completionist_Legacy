@@ -8,215 +8,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  Widget _SignupBtn() {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 25),
-      child: RaisedButton(
-        padding: EdgeInsets.all(15),
-        onPressed: () async {
-          print("SignUp Pressed");
-
-          if (password == rePassword) {
-            print("Password verification successful");
-            print(email);
-            print(password);
-            print(gamerTag);
-            try {
-              final newUser = await _auth.createUserWithEmailAndPassword(
-                  email: email, password: password);
-
-              if (newUser != null) {
-                Navigator.pushNamed(context, '/HomePage');
-              }
-            } catch (e) {
-              print(e);
-            }
-          }
-        },
-        elevation: 6,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        child: Text(
-          'SIGNUP',
-          style: TextStyle(
-              color: Color(0XFF527DAA),
-              letterSpacing: 1.5,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-
-  Widget _ReEnterPassword() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Password',
-          style: kLabelStyle,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            onChanged: (value) {
-              rePassword = value;
-            },
-            obscureText: true,
-            cursorColor: Colors.white,
-            keyboardType: TextInputType.visiblePassword,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              hintText: 'Re-Enter your Password',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _GamerTagTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Gamer Tag',
-          style: kLabelStyle,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            onChanged: (value) {
-              gamerTag = value;
-            },
-            keyboardType: TextInputType.text,
-            cursorColor: Colors.white,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.face,
-                color: Colors.white,
-              ),
-              hintText: 'Enter a Gamer ID ',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _EmailTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Email',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextFormField(
-            onChanged: (value) {
-              email = value;
-            },
-            cursorColor: Colors.white,
-            validator: (value) =>
-                value.isEmpty ? 'Email can\'t be empty' : null,
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.email,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Email',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _PasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Password',
-          style: kLabelStyle,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextFormField(
-            onChanged: (value) {
-              password = value;
-            },
-            cursorColor: Colors.white,
-            validator: (value) =>
-                value.isEmpty ? 'Password can\'t be empty' : null,
-            obscureText: true,
-            keyboardType: TextInputType.visiblePassword,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Password',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
   String email;
   String password;
   String gamerTag;
@@ -252,26 +43,93 @@ class _SignupPageState extends State<SignupPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _GamerTagTF(),
+                        kReusableTextField(
+                          columnLabel: 'Gamer Tag',
+                          emptyTextWarning: 'Cannot be empty',
+                          hintText: 'Enter a Gamer ID',
+                          onChangeText: (value) {
+                            gamerTag = value;
+                          },
+                          textFieldIcon: Icon(
+                            Icons.face,
+                            color: Colors.white,
+                          ),
+                        ),
                         SizedBox(
                           height: 20,
                         ),
-                        _EmailTF(),
+                        kReusableTextField(
+                          columnLabel: 'Email',
+                          emptyTextWarning: 'Email can\'t be empty',
+                          hintText: 'Enter your Email',
+                          onChangeText: (value) {
+                            email = value;
+                          },
+                          textFieldIcon: Icon(
+                            Icons.email,
+                            color: Colors.white,
+                          ),
+                        ),
                         SizedBox(
                           height: 20,
                         ),
-                        _PasswordTF(),
+                        kReusablePasswordTextField(
+                          columnLabel: 'Password',
+                          emptyTextWarning: 'Password can\'t be empty',
+                          hintText: 'Enter your Password',
+                          onChangeText: (value) {
+                            password = value;
+                          },
+                          textFieldIcon: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          ),
+                        ),
                         SizedBox(
                           height: 20,
                         ),
-                        _ReEnterPassword(),
+                        kReusablePasswordTextField(
+                          columnLabel: 'Re-Password',
+                          emptyTextWarning: 'Password can\'t be empty',
+                          hintText: 'Re-Enter your Password',
+                          onChangeText: (value) {
+                            rePassword = value;
+                          },
+                          textFieldIcon: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          ),
+                        ),
                         SizedBox(
                           height: 20,
                         )
                         //_buildForgotPasswordBtn(),
                       ],
                     ),
-                    _SignupBtn(),
+                    kReusableBtn(
+                      text: 'SIGNUP',
+                      onPressed: () async {
+                        print("SignUp Pressed");
+
+                        if (password == rePassword) {
+                          print("Password verification successful");
+                          print(email);
+                          print(password);
+                          print(gamerTag);
+                          try {
+                            final newUser =
+                                await _auth.createUserWithEmailAndPassword(
+                                    email: email, password: password);
+
+                            if (newUser != null) {
+                              Navigator.pushNamed(context, '/HomePage');
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
