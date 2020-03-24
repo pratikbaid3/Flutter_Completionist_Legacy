@@ -1,6 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../Utilities/file_management.dart';
+import '../Utilities/db_helper.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'dart:typed_data';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,6 +16,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   List<String> items;
+  bool initialized = false;
+  Database_Manager dbManager;
 
   @override
   void initState() {
@@ -17,6 +25,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     getCurrentUser();
+    dbManager = new Database_Manager();
+    dbManager.Transfer_Data();
     buildList();
   }
 
@@ -33,8 +43,8 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void buildList() {
-    items = List<String>.generate(10000, (i) => "ITEM $i");
+  void buildList() async {
+    items = List<String>.generate(10000, (i) => "Item $i");
   }
 
   @override

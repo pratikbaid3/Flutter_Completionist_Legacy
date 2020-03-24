@@ -65,14 +65,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                /**Expanded(
-                    child: Container(
+                Expanded(
+                  child: Container(
                     child: FlareActor("assets/anim.flr",
-                    alignment: Alignment.center,
-                    fit: BoxFit.contain,
-                    animation: "idle"),
-                    ),
-                    ),**/
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                        animation: "idle"),
+                  ),
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(

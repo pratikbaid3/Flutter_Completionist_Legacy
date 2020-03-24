@@ -34,7 +34,7 @@ class _SignupPageState extends State<SignupPage> {
               child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(
-                  horizontal: 40.0,
+                  horizontal: 20.0,
                   vertical: 70.0,
                 ),
                 child: Column(
