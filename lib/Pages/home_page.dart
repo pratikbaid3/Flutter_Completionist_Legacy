@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../Utilities/file_management.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  List<String> items;
 
   @override
   void initState() {
@@ -15,6 +17,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     getCurrentUser();
+    buildList();
   }
 
   void getCurrentUser() async {
@@ -30,6 +33,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void buildList() {
+    items = List<String>.generate(10000, (i) => "ITEM $i");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,16 +49,13 @@ class _HomePageState extends State<HomePage> {
               fontSize: 25),
         ),
       ),
-      body: Center(
-        child: Text(
-          'HOME',
-          style: TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ),
+      body: ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return new ListTile(
+              title: Text('${items[index]}'),
+            );
+          }),
     );
   }
 }

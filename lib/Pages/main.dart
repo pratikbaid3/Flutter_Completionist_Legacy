@@ -3,6 +3,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:game_trophy_manager/Pages/login_page.dart';
 import 'package:game_trophy_manager/Pages/signup_page.dart';
 import 'home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(OnBoarding());
@@ -16,7 +17,7 @@ class OnBoarding extends StatelessWidget {
           primaryColor: Color(0xff202020),
           scaffoldBackgroundColor: Color(0xff202020),
           accentColor: Color(0xFF3F8AE1)),
-      initialRoute: '/OnBoardingPage',
+      home: OnBoardingPage(),
       routes: {
         '/OnBoardingPage': (context) => OnBoardingPage(),
         '/SignupPage': (context) => SignupPage(),
@@ -27,7 +28,33 @@ class OnBoarding extends StatelessWidget {
   }
 }
 
-class OnBoardingPage extends StatelessWidget {
+class OnBoardingPage extends StatefulWidget {
+  @override
+  _OnBoardingPageState createState() => _OnBoardingPageState();
+}
+
+class _OnBoardingPageState extends State<OnBoardingPage> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUser();
+  }
+
+  void getUser() async {
+    try {
+      FirebaseUser currentUser = await _auth.currentUser();
+      if (currentUser != null) {
+        print(currentUser.email);
+        Navigator.pushNamed(context, '/HomePage');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +66,13 @@ class OnBoardingPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 /**Expanded(
-                  child: Container(
+                    child: Container(
                     child: FlareActor("assets/anim.flr",
-                        alignment: Alignment.center,
-                        fit: BoxFit.contain,
-                        animation: "idle"),
-                  ),
-                ),**/
+                    alignment: Alignment.center,
+                    fit: BoxFit.contain,
+                    animation: "idle"),
+                    ),
+                    ),**/
                 Row(
                   children: <Widget>[
                     Expanded(

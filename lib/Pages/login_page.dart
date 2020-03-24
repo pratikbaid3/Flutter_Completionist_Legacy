@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_trophy_manager/Utilities/reusable_elements.dart';
 import 'package:game_trophy_manager/Pages/signup_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -99,6 +100,14 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushNamed(context, '/HomePage');
                           }
                         } catch (e) {
+                          Fluttertoast.showToast(
+                              msg: 'Incorrect Email/Password',
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 5,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+
                           print(e);
                         }
                       },
