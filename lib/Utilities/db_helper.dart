@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Database_Manager {
-  var db;
+  Database db;
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -30,6 +30,22 @@ class Database_Manager {
     } else {
       print("Opening existing DB");
     }
+  }
+
+  Future<List<String>> getGameName() async {
+    List<String> gameName = new List<String>();
+
+    String dirPath = await _localPath;
+    String path = join(dirPath, "asset_trophiesDataLink.db");
     db = await openDatabase(path, readOnly: true);
+    String TABLE = 'trophy_data_link';
+    String COLUMN = 'game_name';
+    List<Map> list = await db.rawQuery('SELECT * FROM $TABLE');
+    if (list.length > 0) {
+      for (int i = 0; i < list.length; i++) {
+        gameName.add(list[i]['game_name']);
+      }
+      return gameName;
+    }
   }
 }

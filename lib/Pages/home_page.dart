@@ -44,28 +44,63 @@ class _HomePageState extends State<HomePage> {
   }
 
   void buildList() async {
-    items = List<String>.generate(10000, (i) => "Item $i");
+    items = await dbManager.getGameName();
+    List<String> gameName = await dbManager.getGameName();
+    print(gameName);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Home Page',
-          style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontWeight: FontWeight.bold,
-              fontSize: 25),
+        appBar: AppBar(
+          title: Text(
+            'Home Page',
+            style: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 25),
+          ),
         ),
-      ),
-      body: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return new ListTile(
-              title: Text('${items[index]}'),
-            );
-          }),
-    );
+        body: FutureBuilder(
+          future: dbManager.getGameName(),
+          builder: (context, snapshot) {
+            Widget x;
+
+            if (snapshot.hasData) {
+              x = ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return new ListTile(
+                      title: Text('${items[index]}'),
+                    );
+                  });
+            } else if (snapshot.hasError) {
+              x = Center(
+                child: Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 60,
+                ),
+              );
+            } else {
+              x = Center(
+                child: SizedBox(
+                  child: CircularProgressIndicator(),
+                  width: 60,
+                  height: 60,
+                ),
+              );
+            }
+            return x;
+          },
+        ));
   }
 }
+
+/**ListView.builder(
+    itemCount: items.length,
+    itemBuilder: (context, index) {
+    return new ListTile(
+    title: Text('${items[index]}'),
+    );
+    }),**/
