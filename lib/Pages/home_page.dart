@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../Utilities/db_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,13 +11,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   List<List<String>> items;
+  List<String> filteredGames;
+  List<String> filteredGamesIcon;
+
   bool initialized = false;
   Database_Manager dbManager;
 
   @override
   void initState() {
-    // TODO: implement initState
+    //TODO: implement initState
     super.initState();
 
     getCurrentUser();
@@ -39,7 +44,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void buildList() async {
-    items = await dbManager.getGameName();
+    setState(() async {
+      items = await dbManager.getGameName();
+      filteredGames = items[0];
+      filteredGamesIcon = items[1];
+    });
   }
 
   @override
@@ -82,8 +91,15 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(
                               left: 16, right: 16, top: 4, bottom: 4),
                           child: TextField(
-                            onChanged: (String) {
-                              //TODO check the change of the search bar here
+                            onChanged: (string) {
+                              // TODO: check the change of the search bar here
+                              setState(() {
+                                filteredGames = items[0]
+                                    .where((u) => (u
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase())))
+                                    .toList();
+                              });
                             },
                             style: const TextStyle(
                               fontSize: 18,
@@ -140,7 +156,7 @@ class _HomePageState extends State<HomePage> {
 
                   if (snapshot.hasData) {
                     x = ListView.builder(
-                        itemCount: items[0].length,
+                        itemCount: filteredGames.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return new Card(
@@ -154,7 +170,8 @@ class _HomePageState extends State<HomePage> {
                             child: new InkWell(
                               splashColor: Colors.white,
                               onTap: () {
-                                print(items[0][index]);
+                                //TODO: Go to the trophies page for the corresponding game
+                                print(filteredGames[index]);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -175,10 +192,11 @@ class _HomePageState extends State<HomePage> {
                                       child: Image(
                                         width: 90,
                                         height: 90,
-                                        image: NetworkImage(items[1][index]),
+                                        image: NetworkImage(
+                                            filteredGamesIcon[index]),
                                       )),
                                   title: Text(
-                                    '${items[0][index]}',
+                                    '${filteredGames[index]}',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
