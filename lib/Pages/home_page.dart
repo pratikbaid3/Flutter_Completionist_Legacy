@@ -1,12 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../Utilities/db_helper.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,7 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  List<String> items;
+  List<List<String>> items;
   bool initialized = false;
   Database_Manager dbManager;
 
@@ -45,8 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   void buildList() async {
     items = await dbManager.getGameName();
-    List<String> gameName = await dbManager.getGameName();
-    print(gameName);
+    print(items[1]);
   }
 
   @override
@@ -68,10 +61,13 @@ class _HomePageState extends State<HomePage> {
 
             if (snapshot.hasData) {
               x = ListView.builder(
-                  itemCount: items.length,
+                  itemCount: items[0].length,
                   itemBuilder: (context, index) {
                     return new ListTile(
-                      title: Text('${items[index]}'),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(items[1][index]),
+                      ),
+                      title: Text('${items[0][index]}'),
                     );
                   });
             } else if (snapshot.hasError) {
@@ -96,11 +92,3 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
-
-/**ListView.builder(
-    itemCount: items.length,
-    itemBuilder: (context, index) {
-    return new ListTile(
-    title: Text('${items[index]}'),
-    );
-    }),**/

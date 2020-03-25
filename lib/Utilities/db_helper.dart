@@ -32,8 +32,11 @@ class Database_Manager {
     }
   }
 
-  Future<List<String>> getGameName() async {
+  Future<List<List<String>>> getGameName() async {
     List<String> gameName = new List<String>();
+    List<String> gameIcon = new List<String>();
+
+    List<List<String>> gameData = new List();
 
     String dirPath = await _localPath;
     String path = join(dirPath, "asset_trophiesDataLink.db");
@@ -44,8 +47,13 @@ class Database_Manager {
     if (list.length > 0) {
       for (int i = 0; i < list.length; i++) {
         gameName.add(list[i]['game_name']);
+        String gameIconLink =
+            "https://www.playstationtrophies.org" + list[i]['image_link'];
+        gameIcon.add(gameIconLink);
       }
-      return gameName;
+      gameData.add(gameName);
+      gameData.add(gameIcon);
+      return gameData;
     }
   }
 }
