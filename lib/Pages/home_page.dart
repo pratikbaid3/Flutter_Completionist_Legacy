@@ -71,41 +71,48 @@ class _HomePageState extends State<HomePage> {
                       elevation: 8.0,
                       margin: new EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 6.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xffb383D4A),
-                          borderRadius:
-                              new BorderRadius.all(const Radius.circular(10)),
-                        ),
-                        child: ListTile(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 10.0),
-                          leading: Container(
-                              padding: EdgeInsets.only(right: 12.0),
-                              decoration: new BoxDecoration(
-                                  border: new Border(
-                                      right: new BorderSide(
-                                          width: 1.0, color: Colors.white24))),
-                              child: Image(
-                                width: 90,
-                                height: 90,
-                                image: NetworkImage(items[1][index]),
-                              )),
-                          title: Text(
-                            '${items[0][index]}',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                      child: new InkWell(
+                        splashColor: Colors.grey,
+                        onTap: () {
+                          print(items[0][index]);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xffb383D4A),
+                            borderRadius:
+                                new BorderRadius.all(const Radius.circular(10)),
                           ),
-                          trailing: Icon(Icons.keyboard_arrow_right,
-                              color: Colors.white, size: 30.0),
-                          subtitle: Row(
-                            children: <Widget>[
-                              Icon(Icons.linear_scale,
-                                  color: Colors.yellowAccent),
-                              Text(" Intermediate",
-                                  style: TextStyle(color: Colors.white))
-                            ],
+                          child: ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            leading: Container(
+                                padding: EdgeInsets.only(right: 12.0),
+                                decoration: new BoxDecoration(
+                                    border: new Border(
+                                        right: new BorderSide(
+                                            width: 1.0,
+                                            color: Colors.white24))),
+                                child: Image(
+                                  width: 90,
+                                  height: 90,
+                                  image: NetworkImage(items[1][index]),
+                                )),
+                            title: Text(
+                              '${items[0][index]}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Icon(Icons.keyboard_arrow_right,
+                                color: Colors.white, size: 30.0),
+                            subtitle: Row(
+                              children: <Widget>[
+                                Icon(Icons.linear_scale,
+                                    color: Colors.yellowAccent),
+                                Text(" Intermediate",
+                                    style: TextStyle(color: Colors.white))
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -133,8 +140,3 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
-
-/**CircleAvatar(
-    maxRadius: 25,
-    backgroundImage: NetworkImage(items[1][index]),
-    ),**/
