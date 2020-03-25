@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
 
   void buildList() async {
     items = await dbManager.getGameName();
-    print(items[1]);
   }
 
   @override
@@ -62,12 +61,54 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.hasData) {
               x = ListView.builder(
                   itemCount: items[0].length,
+                  shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return new ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(items[1][index]),
+                    return new Card(
+                      color: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      title: Text('${items[0][index]}'),
+                      elevation: 8.0,
+                      margin: new EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 6.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xffb383D4A),
+                          borderRadius:
+                              new BorderRadius.all(const Radius.circular(10)),
+                        ),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          leading: Container(
+                              padding: EdgeInsets.only(right: 12.0),
+                              decoration: new BoxDecoration(
+                                  border: new Border(
+                                      right: new BorderSide(
+                                          width: 1.0, color: Colors.white24))),
+                              child: Image(
+                                width: 90,
+                                height: 90,
+                                image: NetworkImage(items[1][index]),
+                              )),
+                          title: Text(
+                            '${items[0][index]}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          trailing: Icon(Icons.keyboard_arrow_right,
+                              color: Colors.white, size: 30.0),
+                          subtitle: Row(
+                            children: <Widget>[
+                              Icon(Icons.linear_scale,
+                                  color: Colors.yellowAccent),
+                              Text(" Intermediate",
+                                  style: TextStyle(color: Colors.white))
+                            ],
+                          ),
+                        ),
+                      ),
                     );
                   });
             } else if (snapshot.hasError) {
@@ -92,3 +133,8 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
+
+/**CircleAvatar(
+    maxRadius: 25,
+    backgroundImage: NetworkImage(items[1][index]),
+    ),**/
