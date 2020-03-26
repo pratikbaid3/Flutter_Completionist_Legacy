@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../Utilities/db_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../Utilities/util_class.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   List<List<String>> items;
   List<String> filteredGames;
   List<String> filteredGamesIcon;
+  final _debouncer = Debouncer(milliseconds: 500);
 
   Map gameDetail = new Map();
 
@@ -104,12 +106,14 @@ class _HomePageState extends State<HomePage> {
                           child: TextField(
                             onChanged: (string) {
                               // TODO: check the change of the search bar here
-                              setState(() {
-                                filteredGames = items[0]
-                                    .where((u) => (u
-                                        .toLowerCase()
-                                        .contains(string.toLowerCase())))
-                                    .toList();
+                              _debouncer.run(() {
+                                setState(() {
+                                  filteredGames = items[0]
+                                      .where((u) => (u
+                                          .toLowerCase()
+                                          .contains(string.toLowerCase())))
+                                      .toList();
+                                });
                               });
                             },
                             style: const TextStyle(
