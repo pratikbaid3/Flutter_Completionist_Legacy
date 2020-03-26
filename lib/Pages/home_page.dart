@@ -16,6 +16,8 @@ class _HomePageState extends State<HomePage> {
   List<String> filteredGames;
   List<String> filteredGamesIcon;
 
+  Map gameDetail = new Map();
+
   bool initialized = false;
   Database_Manager dbManager;
 
@@ -43,9 +45,18 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> convertListToMap() {
+    int length = items[0].length;
+    for (int i = 0; i < length; i++) {
+      gameDetail[items[0][i]] = items[1][i];
+    }
+    print(gameDetail.keys);
+  }
+
   void buildList() async {
     setState(() async {
       items = await dbManager.getGameName();
+      await convertListToMap();
       filteredGames = items[0];
       filteredGamesIcon = items[1];
     });
@@ -193,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                                         width: 90,
                                         height: 90,
                                         image: NetworkImage(
-                                            filteredGamesIcon[index]),
+                                            gameDetail[filteredGames[index]]),
                                       )),
                                   title: Text(
                                     '${filteredGames[index]}',
