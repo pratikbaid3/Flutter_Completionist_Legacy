@@ -17,7 +17,7 @@ class OnBoarding extends StatelessWidget {
           primaryColor: Color(0xff202020),
           scaffoldBackgroundColor: Color(0xff202020),
           accentColor: Color(0xFF3F8AE1)),
-      initialRoute: '/HomePage',
+      initialRoute: '/OnBoardingPage',
       routes: {
         '/OnBoardingPage': (context) => OnBoardingPage(),
         '/SignupPage': (context) => SignupPage(),
