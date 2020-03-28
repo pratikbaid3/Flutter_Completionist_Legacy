@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../Utilities/db_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Utilities/util_class.dart';
+import 'trophy_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,7 +28,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     //TODO: implement initState
     super.initState();
-
     getCurrentUser();
     dbManager = new Database_Manager();
     dbManager.Transfer_Data();
@@ -52,13 +52,12 @@ class _HomePageState extends State<HomePage> {
     for (int i = 0; i < length; i++) {
       gameDetail[items[0][i]] = items[1][i];
     }
-    print(gameDetail.keys);
   }
 
   void buildList() async {
-    setState(() async {
-      items = await dbManager.getGameName();
-      await convertListToMap();
+    items = await dbManager.getGameName();
+    await convertListToMap();
+    setState(() {
       filteredGames = items[0];
       filteredGamesIcon = items[1];
     });
@@ -187,6 +186,13 @@ class _HomePageState extends State<HomePage> {
                               onTap: () {
                                 //TODO: Go to the trophies page for the corresponding game
                                 print(filteredGames[index]);
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return TrophyPage(
+                                      gameName: filteredGames[index],
+                                    );
+                                  },
+                                ));
                               },
                               child: Container(
                                 decoration: BoxDecoration(

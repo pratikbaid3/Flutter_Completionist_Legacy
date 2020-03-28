@@ -42,7 +42,6 @@ class Database_Manager {
     String path = join(dirPath, "asset_trophiesDataLink.db");
     db = await openDatabase(path, readOnly: true);
     String TABLE = 'trophy_data_link';
-    String COLUMN = 'game_name';
     List<Map> list = await db.rawQuery('SELECT * FROM $TABLE');
     if (list.length > 0) {
       for (int i = 0; i < list.length; i++) {
@@ -55,5 +54,39 @@ class Database_Manager {
       gameData.add(gameIcon);
       return gameData;
     }
+  }
+
+  Future<List<List<String>>> getTrophyData(String gameName) async {
+    List<String> trophyName = new List();
+    List<String> trophyDescription = new List();
+    List<String> trophyType = new List();
+    List<String> trophyIconLink = new List();
+
+    List<List<String>> trophyData = new List();
+
+    String dirPath = await _localPath;
+    String path = join(dirPath, "asset_trophiesDataLink.db");
+    db = await openDatabase(path, readOnly: true);
+    String TABLE = 'trophies';
+
+    List<Map> list =
+        await db.rawQuery('SELECT * FROM $TABLE WHERE game_name = "$gameName"');
+    if (list.length > 0) {
+      for (int i = 0; i < list.length; i++) {
+        trophyName.add(list[i]['trophy_name']);
+        trophyDescription.add(list[i]['trophy_description']);
+        trophyType.add(list[i]['trophy_type']);
+
+        String link =
+            "https://www.playstationtrophies.org" + list[i]['trophy_icon'];
+        trophyIconLink.add(link);
+      }
+      trophyData.add(trophyName);
+      trophyData.add(trophyDescription);
+      trophyData.add(trophyType);
+      trophyData.add(trophyIconLink);
+    }
+
+    return trophyData;
   }
 }
