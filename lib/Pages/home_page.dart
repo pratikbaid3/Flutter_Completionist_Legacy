@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getCurrentUser();
     dbManager = new Database_Manager();
-    dbManager.Transfer_Data();
     buildList();
   }
 
