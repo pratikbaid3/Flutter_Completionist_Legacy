@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Home Page',
+            'PlayPod',
             style: TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+                          const EdgeInsets.only(right: 0, top: 8, bottom: 8),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.blue.withOpacity(0.8),
@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(
                               left: 16, right: 16, top: 4, bottom: 4),
                           child: TextField(
+                            cursorColor: Colors.white,
                             onChanged: (string) {
                               // TODO: check the change of the search bar here
                               _debouncer.run(() {
@@ -138,24 +139,6 @@ class _HomePageState extends State<HomePage> {
                             offset: const Offset(0, 2),
                             blurRadius: 8.0),
                       ],
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(32.0),
-                        ),
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Icon(
-                            FontAwesomeIcons.search,
-                            size: 20,
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                 ],
@@ -195,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Color(0xffb383D4A),
+                                  color: Color(0xff465881),
                                   borderRadius: new BorderRadius.all(
                                       const Radius.circular(10)),
                                 ),

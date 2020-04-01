@@ -16,9 +16,9 @@ class OnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-          primaryColor: Color(0xff202020),
-          scaffoldBackgroundColor: Color(0xff202020),
-          accentColor: Color(0xFF3F8AE1)),
+          primaryColor: Color(0xff1b2a49),
+          scaffoldBackgroundColor: Color(0xff1b2a49),
+          accentColor: Color(0xFF1b2a49)),
       initialRoute: '/SplashScreen',
       routes: {
         '/OnBoardingPage': (context) => OnBoardingPage(),

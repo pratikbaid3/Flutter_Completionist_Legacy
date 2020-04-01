@@ -66,7 +66,7 @@ class _TrophyPageState extends State<TrophyPage> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Color(0xffb383D4A),
+                                color: Color(0xff465881),
                                 borderRadius: new BorderRadius.all(
                                     const Radius.circular(10)),
                               ),
