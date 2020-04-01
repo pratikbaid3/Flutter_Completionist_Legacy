@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: EdgeInsets.only(top: 40),
             child: SlimyCard(
+
               color: Color(0xff465881),
               width: 350,
               topCardHeight: 200,
