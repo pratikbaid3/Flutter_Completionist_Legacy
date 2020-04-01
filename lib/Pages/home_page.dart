@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slimy_card/slimy_card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.blue,
+        color: Color(0xff465881),
         shape: CircularNotchedRectangle(),
         notchMargin: 4.0,
         child: new Row(
@@ -43,6 +44,28 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 40),
+            child: SlimyCard(
+              color: Color(0xff465881),
+              width: 350,
+              topCardHeight: 200,
+              bottomCardHeight: 100,
+              borderRadius: 15,
+              topCardWidget: Card(
+                child: Image(
+                  image: NetworkImage(
+                      "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                ),
+              ),
+              bottomCardWidget: Card(),
+              slimeEnabled: true,
+            ),
+          ),
+        ],
       ),
     );
   }
