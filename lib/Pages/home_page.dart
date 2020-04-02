@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:slimy_card/slimy_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -31,235 +32,122 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.menu),
                 onPressed: () {},
               ),
-              padding: EdgeInsets.only(left: 20, top: 5),
+              padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
             ),
             Padding(
               child: IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {},
               ),
-              padding: EdgeInsets.only(top: 5, right: 20),
+              padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
             ),
           ],
         ),
       ),
       body: Center(
-        child: CarouselSlider(
-            viewportFraction: 0.9,
-            aspectRatio: 2.0,
-            autoPlay: true,
-            height: 600,
-            enlargeCenterPage: true,
-            pauseAutoPlayOnTouch: Duration(seconds: 2),
-            items: [
-              Padding(
-                padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                child: SlimyCard(
-                  color: Color(0xff465881),
-                  width: 350,
-                  topCardHeight: 230,
-                  bottomCardHeight: 100,
-                  borderRadius: 10,
-                  topCardWidget: Card(
-                    child: Image(
-                      image: NetworkImage(
-                          "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+        child: Padding(
+          padding: EdgeInsets.only(top: 40, bottom: 0),
+          child: CarouselSlider(
+              viewportFraction: 0.9,
+              aspectRatio: 2.0,
+              autoPlay: true,
+              height: 500,
+              enlargeCenterPage: true,
+              pauseAutoPlayOnTouch: Duration(seconds: 2),
+              items: [
+                Padding(
+                  padding: EdgeInsets.only(top: 40, left: 2, right: 2),
+                  child: SlimyCard(
+                    color: Color(0xff465881),
+                    width: 340,
+                    topCardHeight: 220,
+                    bottomCardHeight: 100,
+                    borderRadius: 10,
+                    topCardWidget: Card(
+                      child: Image(
+                        image: NetworkImage(
+                            "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                      ),
                     ),
+                    bottomCardWidget: Card(),
+                    slimeEnabled: true,
                   ),
-                  bottomCardWidget: Card(),
-                  slimeEnabled: true,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                child: SlimyCard(
-                  color: Color(0xff465881),
-                  width: 350,
-                  topCardHeight: 230,
-                  bottomCardHeight: 100,
-                  borderRadius: 10,
-                  topCardWidget: Card(
-                    child: Image(
-                      image: NetworkImage(
-                          "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                Padding(
+                  padding: EdgeInsets.only(top: 40, left: 2, right: 2),
+                  child: SlimyCard(
+                    color: Color(0xff465881),
+                    width: 350,
+                    topCardHeight: 220,
+                    bottomCardHeight: 100,
+                    borderRadius: 10,
+                    topCardWidget: Card(
+                      child: Image(
+                        image: NetworkImage(
+                            "https://www.playstationtrophies.org/images/trophies/5857/ico.png"),
+                      ),
                     ),
+                    bottomCardWidget: Card(),
+                    slimeEnabled: true,
                   ),
-                  bottomCardWidget: Card(),
-                  slimeEnabled: true,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                child: SlimyCard(
-                  color: Color(0xff465881),
-                  width: 350,
-                  topCardHeight: 230,
-                  bottomCardHeight: 100,
-                  borderRadius: 10,
-                  topCardWidget: Card(
-                    child: Image(
-                      image: NetworkImage(
-                          "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                Padding(
+                  padding: EdgeInsets.only(top: 40, left: 2, right: 2),
+                  child: SlimyCard(
+                    color: Color(0xff465881),
+                    width: 350,
+                    topCardHeight: 220,
+                    bottomCardHeight: 100,
+                    borderRadius: 10,
+                    topCardWidget: Card(
+                      child: Image(
+                        image: NetworkImage(
+                            "https://www.playstationtrophies.org/images/trophies/7475/ico.png"),
+                      ),
                     ),
+                    bottomCardWidget: Card(),
+                    slimeEnabled: true,
                   ),
-                  bottomCardWidget: Card(),
-                  slimeEnabled: true,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                child: SlimyCard(
-                  color: Color(0xff465881),
-                  width: 350,
-                  topCardHeight: 230,
-                  bottomCardHeight: 100,
-                  borderRadius: 10,
-                  topCardWidget: Card(
-                    child: Image(
-                      image: NetworkImage(
-                          "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                Padding(
+                  padding: EdgeInsets.only(top: 40, left: 2, right: 2),
+                  child: SlimyCard(
+                    color: Color(0xff465881),
+                    width: 350,
+                    topCardHeight: 220,
+                    bottomCardHeight: 100,
+                    borderRadius: 10,
+                    topCardWidget: Card(
+                      child: Image(
+                        image: NetworkImage(
+                            "https://www.playstationtrophies.org/images/trophies/4946/ico.png"),
+                      ),
                     ),
+                    bottomCardWidget: Card(),
+                    slimeEnabled: true,
                   ),
-                  bottomCardWidget: Card(),
-                  slimeEnabled: true,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                child: SlimyCard(
-                  color: Color(0xff465881),
-                  width: 350,
-                  topCardHeight: 230,
-                  bottomCardHeight: 100,
-                  borderRadius: 10,
-                  topCardWidget: Card(
-                    child: Image(
-                      image: NetworkImage(
-                          "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                Padding(
+                  padding: EdgeInsets.only(top: 40, left: 2, right: 2),
+                  child: SlimyCard(
+                    color: Color(0xff465881),
+                    width: 350,
+                    topCardHeight: 220,
+                    bottomCardHeight: 100,
+                    borderRadius: 10,
+                    topCardWidget: Card(
+                      child: Image(
+                        image: NetworkImage(
+                            "https://www.playstationtrophies.org/images/trophies/4708/ico.png"),
+                      ),
                     ),
+                    bottomCardWidget: Card(),
+                    slimeEnabled: true,
                   ),
-                  bottomCardWidget: Card(),
-                  slimeEnabled: true,
                 ),
-              ),
-            ]),
+              ]),
+        ),
       ),
     );
   }
 }
-/**Padding(
-    padding: EdgeInsets.only(top: 40),
-    child: ListView(
-    scrollDirection: Axis.horizontal,
-    children: <Widget>[
-    Padding(
-    padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-    child: SlimyCard(
-    color: Color(0xff465881),
-    width: 380,
-    topCardHeight: 230,
-    bottomCardHeight: 100,
-    borderRadius: 10,
-    topCardWidget: Card(
-    child: Image(
-    image: NetworkImage(
-    "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
-    ),
-    ),
-    bottomCardWidget: Card(),
-    slimeEnabled: true,
-    ),
-    ),
-    Padding(
-    padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-    child: SlimyCard(
-    color: Color(0xff465881),
-    width: 380,
-    topCardHeight: 230,
-    bottomCardHeight: 100,
-    borderRadius: 10,
-    topCardWidget: Card(
-    child: Image(
-    image: NetworkImage(
-    "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
-    ),
-    ),
-    bottomCardWidget: Card(),
-    slimeEnabled: true,
-    ),
-    ),
-    Padding(
-    padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-    child: SlimyCard(
-    color: Color(0xff465881),
-    width: 380,
-    topCardHeight: 230,
-    bottomCardHeight: 100,
-    borderRadius: 10,
-    topCardWidget: Card(
-    child: Image(
-    image: NetworkImage(
-    "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
-    ),
-    ),
-    bottomCardWidget: Card(),
-    slimeEnabled: true,
-    ),
-    ),
-    Padding(
-    padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-    child: SlimyCard(
-    color: Color(0xff465881),
-    width: 380,
-    topCardHeight: 230,
-    bottomCardHeight: 100,
-    borderRadius: 10,
-    topCardWidget: Card(
-    child: Image(
-    image: NetworkImage(
-    "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
-    ),
-    ),
-    bottomCardWidget: Card(),
-    slimeEnabled: true,
-    ),
-    ),
-    Padding(
-    padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-    child: SlimyCard(
-    color: Color(0xff465881),
-    width: 380,
-    topCardHeight: 230,
-    bottomCardHeight: 100,
-    borderRadius: 10,
-    topCardWidget: Card(
-    child: Image(
-    image: NetworkImage(
-    "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
-    ),
-    ),
-    bottomCardWidget: Card(),
-    slimeEnabled: true,
-    ),
-    ),
-    Padding(
-    padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-    child: SlimyCard(
-    color: Color(0xff465881),
-    width: 380,
-    topCardHeight: 230,
-    bottomCardHeight: 100,
-    borderRadius: 10,
-    topCardWidget: Card(
-    child: Image(
-    image: NetworkImage(
-    "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
-    ),
-    ),
-    bottomCardWidget: Card(),
-    slimeEnabled: true,
-    ),
-    ),
-    ],
-    ),
-    ),**/
