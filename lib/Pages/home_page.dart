@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:slimy_card/slimy_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:neumorphic/neumorphic.dart';
+import '../Utilities/reusable_elements.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,13 +17,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
+          child: const Icon(
+            Icons.add,
+          ),
           onPressed: () {
             Navigator.pushNamed(context, '/GamePage');
           },
         ),
         bottomNavigationBar: BottomAppBar(
-          color: Color(0xff465881),
+          color: accentColor,
           shape: CircularNotchedRectangle(),
           notchMargin: 4.0,
           child: new Row(
@@ -48,19 +52,19 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 50),
+              padding: EdgeInsets.only(top: 40),
               child: CarouselSlider(
                   viewportFraction: 0.9,
                   aspectRatio: 2.0,
                   autoPlay: true,
-                  height: 500,
+                  height: 510,
                   enlargeCenterPage: true,
                   pauseAutoPlayOnTouch: Duration(seconds: 2),
                   items: [
                     Padding(
                       padding: EdgeInsets.only(top: 40, left: 2, right: 2),
                       child: SlimyCard(
-                        color: Color(0xff465881),
+                        color: accentColor,
                         width: 350,
                         topCardHeight: 250,
                         bottomCardHeight: 100,
@@ -71,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                             curveType: CurveType.flat,
                             bevel: 12,
                             decoration: NeumorphicDecoration(
-                              color: Color(0xff465881),
+                              color: accentColor,
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(12),
@@ -91,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.only(top: 40, left: 2, right: 2),
                       child: SlimyCard(
-                        color: Color(0xff465881),
+                        color: accentColor,
                         width: 350,
                         topCardHeight: 250,
                         bottomCardHeight: 100,
@@ -102,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                             curveType: CurveType.flat,
                             bevel: 12,
                             decoration: NeumorphicDecoration(
-                              color: Color(0xff465881),
+                              color: accentColor,
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(12),
@@ -122,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.only(top: 40, left: 2, right: 2),
                       child: SlimyCard(
-                        color: Color(0xff465881),
+                        color: accentColor,
                         width: 350,
                         topCardHeight: 250,
                         bottomCardHeight: 100,
@@ -133,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                             curveType: CurveType.flat,
                             bevel: 12,
                             decoration: NeumorphicDecoration(
-                              color: Color(0xff465881),
+                              color: accentColor,
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(12),
@@ -153,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.only(top: 40, left: 2, right: 2),
                       child: SlimyCard(
-                        color: Color(0xff465881),
+                        color: accentColor,
                         width: 350,
                         topCardHeight: 250,
                         bottomCardHeight: 100,
@@ -164,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                             curveType: CurveType.flat,
                             bevel: 12,
                             decoration: NeumorphicDecoration(
-                              color: Color(0xff465881),
+                              color: accentColor,
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(12),
@@ -184,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.only(top: 40, left: 2, right: 2),
                       child: SlimyCard(
-                        color: Color(0xff465881),
+                        color: accentColor,
                         width: 350,
                         topCardHeight: 250,
                         bottomCardHeight: 100,
@@ -195,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                             curveType: CurveType.flat,
                             bevel: 12,
                             decoration: NeumorphicDecoration(
-                              color: Color(0xff465881),
+                              color: accentColor,
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(12),
@@ -214,6 +218,82 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ]),
             ),
+            Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 40),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: NeuCard(
+                        curveType: CurveType.flat,
+                        bevel: 8,
+                        decoration: NeumorphicDecoration(
+                          color: backgroundColor,
+                        ),
+                        child: SizedBox(
+                          child: Center(
+                            child: Icon(
+                              LineAwesomeIcons.trophy,
+                              color: Color(0xffD4AF37),
+                              size: 60,
+                            ),
+                          ),
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: NeuCard(
+                        curveType: CurveType.flat,
+                        bevel: 8,
+                        decoration: NeumorphicDecoration(
+                          color: backgroundColor,
+                        ),
+                        child: SizedBox(
+                          child: Center(
+                            child: Icon(
+                              LineAwesomeIcons.trophy,
+                              color: Color(0xffC0C0C0),
+                              size: 60,
+                            ),
+                          ),
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: NeuCard(
+                        curveType: CurveType.flat,
+                        bevel: 8,
+                        decoration: NeumorphicDecoration(
+                          color: backgroundColor,
+                        ),
+                        child: SizedBox(
+                          child: Center(
+                            child: Icon(
+                              LineAwesomeIcons.trophy,
+                              color: Color(0xffb08d57),
+                              size: 60,
+                            ),
+                          ),
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ));
   }

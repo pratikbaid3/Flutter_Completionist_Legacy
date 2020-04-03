@@ -7,6 +7,7 @@ import 'onboarding_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'splash_page.dart';
 import 'home_page.dart';
+import '../Utilities/reusable_elements.dart';
 
 void main() {
   runApp(OnBoarding());
@@ -17,10 +18,10 @@ class OnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-          primaryColor: Color(0xff1b2a49),
-          scaffoldBackgroundColor: Color(0xff1b2a49),
-          accentColor: Color(0xFF1b2a49)),
-      initialRoute: '/SplashScreen',
+          primaryColor: backgroundColor,
+          scaffoldBackgroundColor: backgroundColor,
+          accentColor: backgroundColor),
+      initialRoute: '/HomePage',
       routes: {
         '/OnBoardingPage': (context) => OnBoardingPage(),
         '/SignupPage': (context) => SignupPage(),

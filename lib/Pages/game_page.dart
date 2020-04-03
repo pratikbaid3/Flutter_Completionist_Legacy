@@ -2,10 +2,12 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/db_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Utilities/util_class.dart';
 import 'trophy_page.dart';
+import '../Utilities/reusable_elements.dart';
 
 class GamePage extends StatefulWidget {
   @override
@@ -66,168 +68,146 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Games',
-            style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.bold,
-                fontSize: 25),
+        body: Column(
+      children: <Widget>[
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 25, right: 25, top: 80, bottom: 20),
+          child: NeuCard(
+            curveType: CurveType.emboss,
+            bevel: 16,
+            decoration: NeumorphicDecoration(
+              color: backgroundColor,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: backgroundColor,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 4, bottom: 4),
+                child: TextField(
+                  cursorColor: Colors.white,
+                  onChanged: (string) {
+                    // TODO: check the change of the search bar here
+                    _debouncer.run(() {
+                      setState(() {
+                        filteredGames = items[0]
+                            .where((u) => (u
+                                .toLowerCase()
+                                .contains(string.toLowerCase())))
+                            .toList();
+                      });
+                    });
+                  },
+                  style: const TextStyle(fontSize: 18, color: Colors.grey),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Which game?',
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(right: 0, top: 8, bottom: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue.withOpacity(0.8),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(38.0),
-                          ),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: Colors.blue.withOpacity(0.6),
-                                offset: const Offset(0, 2),
-                                blurRadius: 8.0),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, top: 4, bottom: 4),
-                          child: TextField(
-                            cursorColor: Colors.white,
-                            onChanged: (string) {
-                              // TODO: check the change of the search bar here
-                              _debouncer.run(() {
-                                setState(() {
-                                  filteredGames = items[0]
-                                      .where((u) => (u
-                                          .toLowerCase()
-                                          .contains(string.toLowerCase())))
-                                      .toList();
-                                });
-                              });
-                            },
-                            style: const TextStyle(
-                              fontSize: 18,
-                            ),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Which game?',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: FutureBuilder(
-                future: dbManager.getGameName(),
-                builder: (context, snapshot) {
-                  Widget x;
+        Expanded(
+          child: FutureBuilder(
+            future: dbManager.getGameName(),
+            builder: (context, snapshot) {
+              Widget x;
 
-                  if (snapshot.hasData) {
-                    x = ListView.builder(
-                        itemCount: filteredGames.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return new Card(
-                            color: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 8.0,
-                            margin: new EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 6.0),
-                            child: new InkWell(
-                              splashColor: Colors.white,
-                              onTap: () {
-                                //TODO: Go to the trophies page for the corresponding game
-                                print(filteredGames[index]);
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return TrophyPage(
-                                      gameName: filteredGames[index],
-                                    );
-                                  },
-                                ));
+              if (snapshot.hasData) {
+                x = ListView.builder(
+                    padding: EdgeInsets.only(top: 0),
+                    itemCount: filteredGames.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return new Card(
+                        color: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        elevation: 8.0,
+                        margin: new EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 10.0),
+                        child: new InkWell(
+                          splashColor: Colors.white,
+                          onTap: () {
+                            //TODO: Go to the trophies page for the corresponding game
+                            print(filteredGames[index]);
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return TrophyPage(
+                                  gameName: filteredGames[index],
+                                );
                               },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xff465881),
-                                  borderRadius: new BorderRadius.all(
-                                      const Radius.circular(10)),
-                                ),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 20.0, vertical: 13.0),
-                                  leading: Container(
-                                      padding: EdgeInsets.only(right: 12.0),
-                                      decoration: new BoxDecoration(
-                                          border: new Border(
-                                              right: new BorderSide(
-                                                  width: 1.0,
-                                                  color: Colors.white24))),
-                                      child: Image(
-                                        width: 90,
-                                        height: 90,
-                                        image: NetworkImage(
-                                            gameDetail[filteredGames[index]]),
-                                      )),
-                                  title: Text(
-                                    '${filteredGames[index]}',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  trailing: Icon(Icons.keyboard_arrow_right,
-                                      color: Colors.white, size: 30.0),
-                                  subtitle: Row(
-                                    children: <Widget>[
-                                      Icon(Icons.linear_scale,
-                                          color: Colors.yellowAccent),
-                                      Text(" Intermediate",
-                                          style: TextStyle(color: Colors.white))
-                                    ],
-                                  ),
-                                ),
+                            ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: accentColor,
+                              borderRadius: new BorderRadius.all(
+                                  const Radius.circular(10)),
+                            ),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 13.0),
+                              leading: Container(
+                                  padding: EdgeInsets.only(right: 12.0),
+                                  decoration: new BoxDecoration(
+                                      border: new Border(
+                                          right: new BorderSide(
+                                              width: 1.0,
+                                              color: Colors.white24))),
+                                  child: Image(
+                                    width: 90,
+                                    height: 90,
+                                    image: NetworkImage(
+                                        gameDetail[filteredGames[index]]),
+                                  )),
+                              title: Text(
+                                '${filteredGames[index]}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              trailing: Icon(Icons.keyboard_arrow_right,
+                                  color: Colors.white, size: 30.0),
+                              subtitle: Row(
+                                children: <Widget>[
+                                  Icon(Icons.linear_scale,
+                                      color: Colors.yellowAccent),
+                                  Text(" Intermediate",
+                                      style: TextStyle(color: Colors.white))
+                                ],
                               ),
                             ),
-                          );
-                        });
-                  } else if (snapshot.hasError) {
-                    x = Center(
-                      child: Icon(
-                        Icons.error_outline,
-                        color: Colors.red,
-                        size: 60,
-                      ),
-                    );
-                  } else {
-                    x = Center(
-                      child: SizedBox(
-                        child: CircularProgressIndicator(),
-                        width: 60,
-                        height: 60,
-                      ),
-                    );
-                  }
-                  return x;
-                },
-              ),
-            ),
-          ],
-        ));
+                          ),
+                        ),
+                      );
+                    });
+              } else if (snapshot.hasError) {
+                x = Center(
+                  child: Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                );
+              } else {
+                x = Center(
+                  child: SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 60,
+                    height: 60,
+                  ),
+                );
+              }
+              return x;
+            },
+          ),
+        ),
+      ],
+    ));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Utilities/db_helper.dart';
+import '../Utilities/reusable_elements.dart';
 
 class TrophyPage extends StatefulWidget {
   TrophyPage({this.gameName});
@@ -12,7 +13,6 @@ class TrophyPage extends StatefulWidget {
 class _TrophyPageState extends State<TrophyPage> {
   List<List<String>> trophyData;
   Database_Manager dbManager;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -57,7 +57,7 @@ class _TrophyPageState extends State<TrophyPage> {
                           ),
                           elevation: 8.0,
                           margin: new EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 6.0),
+                              horizontal: 20.0, vertical: 13.0),
                           child: new InkWell(
                             splashColor: Colors.white,
                             onTap: () {
@@ -66,7 +66,7 @@ class _TrophyPageState extends State<TrophyPage> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Color(0xff465881),
+                                color: accentColor,
                                 borderRadius: new BorderRadius.all(
                                     const Radius.circular(10)),
                               ),
