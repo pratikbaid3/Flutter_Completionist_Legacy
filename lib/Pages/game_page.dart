@@ -139,6 +139,8 @@ class _GamePageState extends State<GamePage> {
                               builder: (context) {
                                 return TrophyPage(
                                   gameName: filteredGames[index],
+                                  gameImageIcon:
+                                      gameDetail[filteredGames[index]],
                                 );
                               },
                             ));

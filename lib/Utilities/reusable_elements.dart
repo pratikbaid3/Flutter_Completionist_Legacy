@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-final Color accentColor = Color(0xff435055);
-final Color backgroundColor = Color(0xff27323a);
+final Color accentColor = Color(0xff393e46);
+final Color backgroundColor = Color(0xff222831);
 
 final kHintTextStyle = TextStyle(
   color: Colors.white54,

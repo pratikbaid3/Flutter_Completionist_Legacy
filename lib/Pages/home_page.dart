@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                   ]),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 40),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 0),
               child: Row(
                 children: <Widget>[
                   Expanded(

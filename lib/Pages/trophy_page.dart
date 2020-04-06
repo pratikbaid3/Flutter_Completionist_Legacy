@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/db_helper.dart';
 import '../Utilities/reusable_elements.dart';
 
 class TrophyPage extends StatefulWidget {
-  TrophyPage({this.gameName});
+  TrophyPage({this.gameName, this.gameImageIcon});
   final gameName;
+  final gameImageIcon;
 
   @override
   _TrophyPageState createState() => _TrophyPageState();
@@ -39,6 +41,24 @@ class _TrophyPageState extends State<TrophyPage> {
       ),
       body: Column(
         children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(30),
+            child: NeuCard(
+                curveType: CurveType.flat,
+                bevel: 10,
+                decoration: NeumorphicDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: backgroundColor,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Image(
+                    image: NetworkImage(
+                      widget.gameImageIcon,
+                    ),
+                  ),
+                )),
+          ),
           Expanded(
             child: FutureBuilder(
               future: dbManager.getGameName(),
