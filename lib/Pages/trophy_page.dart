@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/db_helper.dart';
@@ -15,6 +17,8 @@ class TrophyPage extends StatefulWidget {
 class _TrophyPageState extends State<TrophyPage> {
   List<List<String>> trophyData;
   Database_Manager dbManager;
+  bool isSwitched = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -58,6 +62,35 @@ class _TrophyPageState extends State<TrophyPage> {
                     ),
                   ),
                 )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20),
+            child: GestureDetector(
+              onTap: () {
+                print("Tapped");
+              },
+              child: NeuCard(
+                curveType: CurveType.flat,
+                bevel: 10,
+                decoration: NeumorphicDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: backgroundColor,
+                ),
+                child: SizedBox(
+                  child: Center(
+                    child: Text(
+                      "ADD GAME",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  height: 50,
+                  width: 150,
+                ),
+              ),
+            ),
           ),
           Expanded(
             child: FutureBuilder(
@@ -111,8 +144,17 @@ class _TrophyPageState extends State<TrophyPage> {
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                trailing: Icon(Icons.keyboard_arrow_right,
-                                    color: Colors.white, size: 30.0),
+                                trailing: Switch(
+                                  value: isSwitched,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isSwitched = value;
+                                      print(isSwitched);
+                                    });
+                                  },
+                                  activeTrackColor: Colors.lightGreenAccent,
+                                  activeColor: Colors.green,
+                                ),
                                 subtitle: Text(trophyData[1][index],
                                     style: TextStyle(color: Colors.white)),
                               ),
