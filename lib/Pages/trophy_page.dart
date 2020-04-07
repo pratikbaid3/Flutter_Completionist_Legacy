@@ -74,6 +74,7 @@ class _TrophyPageState extends State<TrophyPage> {
           Padding(
             padding: EdgeInsets.only(bottom: 10),
             child: NeuSwitch<int>(
+              thumbColor: accentColor,
               backgroundColor: backgroundColor,
               onValueChanged: (val) {
                 setState(() {
@@ -87,7 +88,7 @@ class _TrophyPageState extends State<TrophyPage> {
               groupValue: gameAdded,
               children: {
                 0: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   child: Icon(
                     Icons.delete,
                     color: Colors.red,
