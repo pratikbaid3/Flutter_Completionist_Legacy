@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/db_helper.dart';
 import '../Utilities/reusable_elements.dart';
+import '../Utilities/checklist_helper.dart';
+import 'package:xlive_switch/xlive_switch.dart';
 
 class TrophyPage extends StatefulWidget {
   TrophyPage({this.gameName, this.gameImageIcon});
@@ -17,7 +19,10 @@ class TrophyPage extends StatefulWidget {
 class _TrophyPageState extends State<TrophyPage> {
   List<List<String>> trophyData;
   Database_Manager dbManager;
+  ChecklistManager checklistManager;
+
   bool isSwitched = false;
+  int gameAdded = 0;
 
   @override
   void initState() {
@@ -29,6 +34,9 @@ class _TrophyPageState extends State<TrophyPage> {
 
   void buildList() async {
     trophyData = await dbManager.getTrophyData(widget.gameName);
+    checklistManager = new ChecklistManager(noOfElements: trophyData[0].length);
+    checklistManager.buildList();
+    print(checklistManager.isSwitcher);
   }
 
   @override
@@ -64,32 +72,35 @@ class _TrophyPageState extends State<TrophyPage> {
                 )),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 20),
-            child: GestureDetector(
-              onTap: () {
-                print("Tapped");
+            padding: EdgeInsets.only(bottom: 10),
+            child: NeuSwitch<int>(
+              backgroundColor: backgroundColor,
+              onValueChanged: (val) {
+                setState(() {
+                  if (gameAdded == 0) {
+                    gameAdded = 1;
+                  } else {
+                    gameAdded = 0;
+                  }
+                });
               },
-              child: NeuCard(
-                curveType: CurveType.flat,
-                bevel: 10,
-                decoration: NeumorphicDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: backgroundColor,
-                ),
-                child: SizedBox(
-                  child: Center(
-                    child: Text(
-                      "ADD GAME",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              groupValue: gameAdded,
+              children: {
+                0: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.red,
                   ),
-                  height: 50,
-                  width: 150,
                 ),
-              ),
+                1: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.green,
+                  ),
+                ),
+              },
             ),
           ),
           Expanded(
@@ -145,11 +156,12 @@ class _TrophyPageState extends State<TrophyPage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 trailing: Switch(
-                                  value: isSwitched,
+                                  value: checklistManager.isSwitcher[index],
                                   onChanged: (value) {
                                     setState(() {
-                                      isSwitched = value;
-                                      print(isSwitched);
+                                      checklistManager.isSwitcher[index] =
+                                          value;
+                                      print(checklistManager.isSwitcher);
                                     });
                                   },
                                   activeTrackColor: Colors.lightGreenAccent,
