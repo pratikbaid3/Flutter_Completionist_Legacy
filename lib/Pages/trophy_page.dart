@@ -36,25 +36,15 @@ class _TrophyPageState extends State<TrophyPage> {
     trophyData = await dbManager.getTrophyData(widget.gameName);
     checklistManager = new ChecklistManager(noOfElements: trophyData[0].length);
     checklistManager.buildList();
-    print(checklistManager.isSwitcher);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.gameName,
-          style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontWeight: FontWeight.bold,
-              fontSize: 25),
-        ),
-      ),
       body: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.only(top: 70, bottom: 30, left: 30, right: 30),
             child: NeuCard(
                 curveType: CurveType.flat,
                 bevel: 10,
@@ -112,6 +102,7 @@ class _TrophyPageState extends State<TrophyPage> {
 
                 if (snapshot.hasData) {
                   x = ListView.builder(
+                      padding: EdgeInsets.only(top: 0),
                       itemCount: trophyData[0].length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -123,54 +114,46 @@ class _TrophyPageState extends State<TrophyPage> {
                           elevation: 8.0,
                           margin: new EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 13.0),
-                          child: new InkWell(
-                            splashColor: Colors.white,
-                            onTap: () {
-                              //TODO: Go to the trophies page for the corresponding game
-                              print(trophyData[0][index]);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: accentColor,
-                                borderRadius: new BorderRadius.all(
-                                    const Radius.circular(10)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: accentColor,
+                              borderRadius: new BorderRadius.all(
+                                  const Radius.circular(10)),
+                            ),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10.0),
+                              leading: Container(
+                                  padding: EdgeInsets.only(right: 12.0),
+                                  decoration: new BoxDecoration(
+                                      border: new Border(
+                                          right: new BorderSide(
+                                              width: 1.0,
+                                              color: Colors.white24))),
+                                  child: Image(
+                                    width: 90,
+                                    height: 90,
+                                    image: NetworkImage(trophyData[3][index]),
+                                  )),
+                              title: Text(
+                                '${trophyData[0][index]}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              child: ListTile(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 20.0, vertical: 10.0),
-                                leading: Container(
-                                    padding: EdgeInsets.only(right: 12.0),
-                                    decoration: new BoxDecoration(
-                                        border: new Border(
-                                            right: new BorderSide(
-                                                width: 1.0,
-                                                color: Colors.white24))),
-                                    child: Image(
-                                      width: 90,
-                                      height: 90,
-                                      image: NetworkImage(trophyData[3][index]),
-                                    )),
-                                title: Text(
-                                  '${trophyData[0][index]}',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                trailing: Switch(
-                                  value: checklistManager.isSwitcher[index],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      checklistManager.isSwitcher[index] =
-                                          value;
-                                      print(checklistManager.isSwitcher);
-                                    });
-                                  },
-                                  activeTrackColor: Colors.lightGreenAccent,
-                                  activeColor: Colors.green,
-                                ),
-                                subtitle: Text(trophyData[1][index],
-                                    style: TextStyle(color: Colors.white)),
+                              trailing: Switch(
+                                value: checklistManager.isSwitcher[index],
+                                onChanged: (value) {
+                                  setState(() {
+                                    checklistManager.isSwitcher[index] = value;
+                                    print(checklistManager.isSwitcher);
+                                  });
+                                },
+                                activeTrackColor: Colors.lightGreenAccent,
+                                activeColor: Colors.green,
                               ),
+                              subtitle: Text(trophyData[1][index],
+                                  style: TextStyle(color: Colors.white)),
                             ),
                           ),
                         );

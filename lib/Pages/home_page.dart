@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/reusable_elements.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   viewportFraction: 0.9,
                   aspectRatio: 2.0,
                   autoPlay: true,
-                  height: 510,
+                  height: 530,
                   enlargeCenterPage: true,
                   pauseAutoPlayOnTouch: Duration(seconds: 2),
                   items: [
@@ -88,7 +89,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        bottomCardWidget: Card(),
+                        bottomCardWidget: Card(
+                          child: SizedBox(
+                            height: 40,
+                            child: LiquidLinearProgressIndicator(
+                              value: 0.6, // Defaults to 0.5.
+                              valueColor: AlwaysStoppedAnimation(Color(
+                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
+                              backgroundColor:
+                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
+                              borderRadius: 4.0,
+                              direction: Axis
+                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
+                              center: Text("60%"),
+                            ),
+                          ),
+                        ),
                         slimeEnabled: true,
                       ),
                     ),
@@ -119,7 +135,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        bottomCardWidget: Card(),
+                        bottomCardWidget: Card(
+                          child: SizedBox(
+                            height: 40,
+                            child: LiquidLinearProgressIndicator(
+                              value: 0.6, // Defaults to 0.5.
+                              valueColor: AlwaysStoppedAnimation(Color(
+                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
+                              backgroundColor:
+                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
+                              borderRadius: 4.0,
+                              direction: Axis
+                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
+                              center: Text("60%"),
+                            ),
+                          ),
+                        ),
                         slimeEnabled: true,
                       ),
                     ),
@@ -150,7 +181,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        bottomCardWidget: Card(),
+                        bottomCardWidget: Card(
+                          child: SizedBox(
+                            height: 40,
+                            child: LiquidLinearProgressIndicator(
+                              value: 0.6, // Defaults to 0.5.
+                              valueColor: AlwaysStoppedAnimation(Color(
+                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
+                              backgroundColor:
+                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
+                              borderRadius: 4.0,
+                              direction: Axis
+                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
+                              center: Text("60%"),
+                            ),
+                          ),
+                        ),
                         slimeEnabled: true,
                       ),
                     ),
@@ -181,7 +227,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        bottomCardWidget: Card(),
+                        bottomCardWidget: Card(
+                          child: SizedBox(
+                            height: 40,
+                            child: LiquidLinearProgressIndicator(
+                              value: 0.6, // Defaults to 0.5.
+                              valueColor: AlwaysStoppedAnimation(Color(
+                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
+                              backgroundColor:
+                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
+                              borderRadius: 4.0,
+                              direction: Axis
+                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
+                              center: Text("60%"),
+                            ),
+                          ),
+                        ),
                         slimeEnabled: true,
                       ),
                     ),
@@ -212,7 +273,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        bottomCardWidget: Card(),
+                        bottomCardWidget: Card(
+                          child: SizedBox(
+                            height: 40,
+                            child: LiquidLinearProgressIndicator(
+                              value: 0.6, // Defaults to 0.5.
+                              valueColor: AlwaysStoppedAnimation(Color(
+                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
+                              backgroundColor:
+                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
+                              borderRadius: 4.0,
+                              direction: Axis
+                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
+                              center: Text("60%"),
+                            ),
+                          ),
+                        ),
                         slimeEnabled: true,
                       ),
                     ),
