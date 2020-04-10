@@ -40,6 +40,7 @@ dependencies:
   xlive_switch: ^1.0.5
   liquid_progress_indicator: ^0.3.2
 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2

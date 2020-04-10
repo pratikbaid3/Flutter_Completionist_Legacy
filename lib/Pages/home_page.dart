@@ -1,4 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:slimy_card/slimy_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -6,6 +7,8 @@ import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/reusable_elements.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +47,11 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 child: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {},
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () {
+                    _auth.signOut();
+                    Navigator.pop(context);
+                  },
                 ),
                 padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
               ),
