@@ -17,6 +17,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _visibilityGold = true;
+  bool _visibilitySilver = true;
+  bool _visibilityBronze = true;
 
   @override
   Widget build(BuildContext context) {
@@ -80,18 +83,23 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: 10,
                         topCardWidget: Padding(
                           padding: EdgeInsets.all(8),
-                          child: NeuCard(
-                            curveType: CurveType.flat,
-                            bevel: 12,
-                            decoration: NeumorphicDecoration(
-                              color: accentColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Card(
-                                child: Image(
-                                  image: NetworkImage(
-                                      "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                          child: GestureDetector(
+                            onTap: () {
+                              print("Go to the trophy page");
+                            },
+                            child: NeuCard(
+                              curveType: CurveType.flat,
+                              bevel: 12,
+                              decoration: NeumorphicDecoration(
+                                color: accentColor,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(12),
+                                child: Card(
+                                  child: Image(
+                                    image: NetworkImage(
+                                        "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
+                                  ),
                                 ),
                               ),
                             ),
@@ -305,6 +313,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.only(left: 10, right: 10, top: 0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Expanded(
                     child: Padding(
@@ -316,11 +325,41 @@ class _HomePageState extends State<HomePage> {
                           color: backgroundColor,
                         ),
                         child: SizedBox(
-                          child: Center(
-                            child: Icon(
-                              LineAwesomeIcons.trophy,
-                              color: Color(0xffD4AF37),
-                              size: 60,
+                          child: GestureDetector(
+                            onTap: () {
+                              print("Change Opacity");
+                              setState(() {
+                                _visibilityGold = !_visibilityGold;
+                              });
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                AnimatedOpacity(
+                                  opacity: _visibilityGold ? 1.0 : 0.0,
+                                  duration: Duration(milliseconds: 500),
+                                  child: Center(
+                                    child: Icon(
+                                      LineAwesomeIcons.trophy,
+                                      color: Color(0xffD4AF37),
+                                      size: 60,
+                                    ),
+                                  ),
+                                ),
+                                AnimatedOpacity(
+                                  opacity: (_visibilityGold) ? 0.0 : 1.0,
+                                  duration: Duration(milliseconds: 500),
+                                  child: Center(
+                                      child: Text(
+                                    '10',
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontFamily: 'Rammetto',
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xffD4AF37),
+                                    ),
+                                  )),
+                                )
+                              ],
                             ),
                           ),
                           height: 100,
@@ -339,11 +378,41 @@ class _HomePageState extends State<HomePage> {
                           color: backgroundColor,
                         ),
                         child: SizedBox(
-                          child: Center(
-                            child: Icon(
-                              LineAwesomeIcons.trophy,
-                              color: Color(0xffC0C0C0),
-                              size: 60,
+                          child: GestureDetector(
+                            onTap: () {
+                              print("Change Opacity");
+                              setState(() {
+                                _visibilitySilver = !_visibilitySilver;
+                              });
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                AnimatedOpacity(
+                                  opacity: _visibilitySilver ? 1.0 : 0.0,
+                                  duration: Duration(milliseconds: 500),
+                                  child: Center(
+                                    child: Icon(
+                                      LineAwesomeIcons.trophy,
+                                      color: Color(0xffC0C0C0),
+                                      size: 60,
+                                    ),
+                                  ),
+                                ),
+                                AnimatedOpacity(
+                                  opacity: (_visibilitySilver) ? 0.0 : 1.0,
+                                  duration: Duration(milliseconds: 500),
+                                  child: Center(
+                                      child: Text(
+                                    '26',
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontFamily: 'Rammetto',
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xffC0C0C0),
+                                    ),
+                                  )),
+                                )
+                              ],
                             ),
                           ),
                           height: 100,
@@ -362,11 +431,41 @@ class _HomePageState extends State<HomePage> {
                           color: backgroundColor,
                         ),
                         child: SizedBox(
-                          child: Center(
-                            child: Icon(
-                              LineAwesomeIcons.trophy,
-                              color: Color(0xffb08d57),
-                              size: 60,
+                          child: GestureDetector(
+                            onTap: () {
+                              print("Change Opacity");
+                              setState(() {
+                                _visibilityBronze = !_visibilityBronze;
+                              });
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                AnimatedOpacity(
+                                  opacity: _visibilityBronze ? 1.0 : 0.0,
+                                  duration: Duration(milliseconds: 500),
+                                  child: Center(
+                                    child: Icon(
+                                      LineAwesomeIcons.trophy,
+                                      color: Color(0xffb08d57),
+                                      size: 60,
+                                    ),
+                                  ),
+                                ),
+                                AnimatedOpacity(
+                                  opacity: (_visibilityBronze) ? 0.0 : 1.0,
+                                  duration: Duration(milliseconds: 500),
+                                  child: Center(
+                                      child: Text(
+                                    '18',
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontFamily: 'Rammetto',
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xffb08d57),
+                                    ),
+                                  )),
+                                )
+                              ],
                             ),
                           ),
                           height: 100,

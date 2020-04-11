@@ -40,78 +40,61 @@ class _TrophyPageState extends State<TrophyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: backgroundColor,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Text(
-              widget.gameName,
-            ),
-            pinned: true,
-            expandedHeight: 375,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 95, bottom: 30, left: 30, right: 30),
-                    child: NeuCard(
-                        curveType: CurveType.flat,
-                        bevel: 10,
-                        decoration: NeumorphicDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: backgroundColor,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Image(
-                            image: NetworkImage(
-                              widget.gameImageIcon,
-                            ),
-                          ),
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: NeuSwitch<int>(
-                      thumbColor: accentColor,
-                      backgroundColor: backgroundColor,
-                      onValueChanged: (val) {
-                        setState(() {
-                          if (gameAdded == 0) {
-                            gameAdded = 1;
-                          } else {
-                            gameAdded = 0;
-                          }
-                        });
-                      },
-                      groupValue: gameAdded,
-                      children: {
-                        0: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 15),
-                          child: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                        ),
-                        1: Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 15, horizontal: 8),
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.green,
-                          ),
-                        ),
-                      },
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 70, bottom: 30, left: 30, right: 30),
+            child: NeuCard(
+                curveType: CurveType.flat,
+                bevel: 10,
+                decoration: NeumorphicDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: backgroundColor,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Image(
+                    image: NetworkImage(
+                      widget.gameImageIcon,
                     ),
                   ),
-                ],
-              ),
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: NeuSwitch<int>(
+              thumbColor: accentColor,
+              backgroundColor: backgroundColor,
+              onValueChanged: (val) {
+                setState(() {
+                  if (gameAdded == 0) {
+                    gameAdded = 1;
+                  } else {
+                    gameAdded = 0;
+                  }
+                });
+              },
+              groupValue: gameAdded,
+              children: {
+                0: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                ),
+                1: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.green,
+                  ),
+                ),
+              },
             ),
           ),
-          SliverFillRemaining(
+          Expanded(
             child: FutureBuilder(
               future: dbManager.getGameName(),
               builder: (context, snapshot) {
