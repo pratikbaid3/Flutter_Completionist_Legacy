@@ -93,7 +93,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                           ),
                         ),
                         decoration: BoxDecoration(
-                          color: Color(0xFF3F8AE1),
+                          color: Color(0xFF393E46),
                         ),
                       ),
                     )

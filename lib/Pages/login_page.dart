@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_trophy_manager/Utilities/reusable_elements.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,6 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final RoundedLoadingButtonController _loginBtnController =
+      new RoundedLoadingButtonController();
+
   Widget _ForgotPasswordBtn() {
     return Container(
       alignment: Alignment.centerRight,
@@ -89,28 +95,45 @@ class _LoginPageState extends State<LoginPage> {
                         _ForgotPasswordBtn(),
                       ],
                     ),
-                    kReusableBtn(
-                      onPressed: () async {
-                        print("Login Pressed");
-                        try {
-                          var user = await _auth.signInWithEmailAndPassword(
-                              email: email, password: password);
-                          if (user != null) {
-                            Navigator.pushNamed(context, '/HomePage');
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 25),
+                      child: RoundedLoadingButton(
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 1.5,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        controller: _loginBtnController,
+                        onPressed: () async {
+                          print("Login Pressed");
+                          try {
+                            var user = await _auth.signInWithEmailAndPassword(
+                                email: email, password: password);
+                            if (user != null) {
+                              _loginBtnController.success();
+                              Timer(Duration(seconds: 1), () {
+                                Navigator.pushNamed(context, '/HomePage');
+                              });
+                            }
+                          } catch (e) {
+                            Fluttertoast.showToast(
+                                msg: 'Incorrect Email/Password',
+                                toastLength: Toast.LENGTH_SHORT,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                            _loginBtnController.error();
+                            Timer(Duration(seconds: 1), () {
+                              _loginBtnController.reset();
+                            });
+                            print(e);
                           }
-                        } catch (e) {
-                          Fluttertoast.showToast(
-                              msg: 'Incorrect Email/Password',
-                              toastLength: Toast.LENGTH_SHORT,
-                              timeInSecForIosWeb: 5,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-
-                          print(e);
-                        }
-                      },
-                      text: "LOGIN",
+                        },
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,

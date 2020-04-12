@@ -13,11 +13,11 @@ final kLabelStyle = TextStyle(
   fontFamily: 'OpenSans',
 );
 final kBoxDecorationStyle = BoxDecoration(
-  color: Color(0xFF3F8AE1),
+  color: Color(0xFF393E46),
   borderRadius: BorderRadius.circular(10.0),
   boxShadow: [
     BoxShadow(
-      color: Color(0xFF3F8AE1),
+      color: Color(0xFF393E46),
       blurRadius: 2.0,
       offset: Offset(0, 1),
     ),
@@ -141,36 +141,6 @@ class _kReusablePasswordTextFieldState
           ),
         )
       ],
-    );
-  }
-}
-
-class kReusableBtn extends StatelessWidget {
-  kReusableBtn({this.onPressed, @required this.text});
-
-  Function onPressed;
-  String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 25),
-      child: RaisedButton(
-        padding: EdgeInsets.all(15),
-        onPressed: onPressed,
-        elevation: 6,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        child: Text(
-          text,
-          style: TextStyle(
-              color: Color(0XFF527DAA),
-              letterSpacing: 1.5,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
     );
   }
 }

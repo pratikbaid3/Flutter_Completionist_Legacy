@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () {
                     _auth.signOut();
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/OnBoardingPage');
                   },
                 ),
                 padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),

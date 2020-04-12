@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../Utilities/reusable_elements.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -14,6 +17,8 @@ class _SignupPageState extends State<SignupPage> {
   String rePassword;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final RoundedLoadingButtonController _signupBtnController =
+      new RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -106,29 +111,47 @@ class _SignupPageState extends State<SignupPage> {
                         //_buildForgotPasswordBtn(),
                       ],
                     ),
-                    kReusableBtn(
-                      text: 'SIGNUP',
-                      onPressed: () async {
-                        print("SignUp Pressed");
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: RoundedLoadingButton(
+                        child: Text(
+                          'SIGN UP',
+                          style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 1.5,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        controller: _signupBtnController,
+                        onPressed: () async {
+                          print("SignUp Pressed");
 
-                        if (password == rePassword) {
-                          print("Password verification successful");
-                          print(email);
-                          print(password);
-                          print(gamerTag);
-                          try {
-                            final newUser =
-                                await _auth.createUserWithEmailAndPassword(
-                                    email: email, password: password);
+                          if (password == rePassword) {
+                            print("Password verification successful");
+                            print(email);
+                            print(password);
+                            print(gamerTag);
+                            try {
+                              final newUser =
+                                  await _auth.createUserWithEmailAndPassword(
+                                      email: email, password: password);
 
-                            if (newUser != null) {
-                              Navigator.pushNamed(context, '/HomePage');
+                              if (newUser != null) {
+                                _signupBtnController.success();
+                                Timer(Duration(seconds: 1), () {
+                                  Navigator.pushNamed(context, '/HomePage');
+                                });
+                              }
+                            } catch (e) {
+                              _signupBtnController.error();
+                              Timer(Duration(seconds: 1), () {
+                                _signupBtnController.reset();
+                              });
+                              print(e);
                             }
-                          } catch (e) {
-                            print(e);
                           }
-                        }
-                      },
+                        },
+                      ),
                     ),
                   ],
                 ),
