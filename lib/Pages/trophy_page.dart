@@ -26,6 +26,7 @@ class _TrophyPageState extends State<TrophyPage> {
 
   bool isSwitched = false;
   int gameAdded = 0;
+  int achievedTrophies = 0;
 
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
@@ -71,6 +72,24 @@ class _TrophyPageState extends State<TrophyPage> {
           snapshot.reference.delete();
           print('Deleted ${widget.gameName}');
         }
+      }
+    });
+  }
+
+  void updateGameFromFirebase() async {
+    FirebaseUser currentUser = await _auth.currentUser();
+    String emailId = currentUser.email;
+
+    _firestore
+        .collection('trophies')
+        .where('emailId', isEqualTo: emailId)
+        .snapshots()
+        .listen((event) {
+      for (var snapshot in event.documents) {
+        snapshot.reference.updateData({
+          'trophiesAchieved': checklistManager.isSwitcher,
+          'noOfTrophiesAchieved': achievedTrophies,
+        });
       }
     });
   }
@@ -185,6 +204,12 @@ class _TrophyPageState extends State<TrophyPage> {
                                 onChanged: (value) {
                                   setState(() {
                                     checklistManager.isSwitcher[index] = value;
+                                    if (value) {
+                                      achievedTrophies++;
+                                    } else {
+                                      achievedTrophies--;
+                                    }
+                                    updateGameFromFirebase();
                                     print(checklistManager.isSwitcher);
                                   });
                                 },
