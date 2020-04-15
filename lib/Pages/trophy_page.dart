@@ -5,8 +5,7 @@ import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/external_db_helper.dart';
 import '../Utilities/reusable_elements.dart';
 import '../Utilities/checklist_helper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import '../Utilities/internal_db_helper.dart';
 
 class TrophyPage extends StatefulWidget {
   TrophyPage({this.gameName, this.gameImageIcon});
@@ -19,7 +18,8 @@ class TrophyPage extends StatefulWidget {
 
 class _TrophyPageState extends State<TrophyPage> {
   List<List<String>> trophyData;
-  External_Database_Manager dbManager;
+  External_Database_Manager externalDbManager;
+  Internal_Database_Manager internalDbManager;
   ChecklistManager checklistManager;
 
   bool isSwitched = false;
@@ -30,12 +30,13 @@ class _TrophyPageState extends State<TrophyPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dbManager = new External_Database_Manager();
+    externalDbManager = new External_Database_Manager();
+    internalDbManager = new Internal_Database_Manager();
     buildList();
   }
 
   void buildList() async {
-    trophyData = await dbManager.getTrophyData(widget.gameName);
+    trophyData = await externalDbManager.getTrophyData(widget.gameName);
     checklistManager = new ChecklistManager(noOfElements: trophyData[0].length);
     checklistManager.buildList();
   }
@@ -73,8 +74,14 @@ class _TrophyPageState extends State<TrophyPage> {
                   if (gameAdded == 0) {
                     gameAdded = 1;
                     //addGameToFirestore();
+                    internalDbManager.addGameToDb(
+                        widget.gameName,
+                        checklistManager.isSwitcher,
+                        0,
+                        checklistManager.isSwitcher.length);
                   } else {
                     gameAdded = 0;
+                    internalDbManager.deleteDB();
                     //deleteGameFromFirestore();
                   }
                 });
@@ -100,7 +107,7 @@ class _TrophyPageState extends State<TrophyPage> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: dbManager.getGameName(),
+              future: externalDbManager.getGameName(),
               builder: (context, snapshot) {
                 Widget x;
 
