@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../Utilities/db_helper.dart';
+import '../Utilities/external_db_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Database_Manager manager = new Database_Manager();
+    External_Database_Manager manager = new External_Database_Manager();
     manager.Transfer_Data();
   }
 

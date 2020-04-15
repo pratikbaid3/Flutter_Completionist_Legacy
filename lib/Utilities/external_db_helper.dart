@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class Database_Manager {
+class External_Database_Manager {
   Database db;
 
   Future<String> get _localPath async {

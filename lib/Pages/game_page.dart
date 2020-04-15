@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:neumorphic/neumorphic.dart';
-import '../Utilities/db_helper.dart';
+import '../Utilities/external_db_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Utilities/util_class.dart';
 import 'trophy_page.dart';
@@ -25,14 +25,14 @@ class _GamePageState extends State<GamePage> {
   Map gameDetail = new Map();
 
   bool initialized = false;
-  Database_Manager dbManager;
+  External_Database_Manager dbManager;
 
   @override
   void initState() {
     //TODO: implement initState
     super.initState();
     getCurrentUser();
-    dbManager = new Database_Manager();
+    dbManager = new External_Database_Manager();
     buildList();
   }
 

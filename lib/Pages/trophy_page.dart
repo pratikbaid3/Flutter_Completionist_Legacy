@@ -2,13 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:neumorphic/neumorphic.dart';
-import '../Utilities/db_helper.dart';
+import '../Utilities/external_db_helper.dart';
 import '../Utilities/reusable_elements.dart';
 import '../Utilities/checklist_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'dart:io' show Platform;
 
 class TrophyPage extends StatefulWidget {
   TrophyPage({this.gameName, this.gameImageIcon});
@@ -21,21 +19,18 @@ class TrophyPage extends StatefulWidget {
 
 class _TrophyPageState extends State<TrophyPage> {
   List<List<String>> trophyData;
-  Database_Manager dbManager;
+  External_Database_Manager dbManager;
   ChecklistManager checklistManager;
 
   bool isSwitched = false;
   int gameAdded = 0;
   int achievedTrophies = 0;
 
-  final _firestore = Firestore.instance;
-  final _auth = FirebaseAuth.instance;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    dbManager = new Database_Manager();
+    dbManager = new External_Database_Manager();
     buildList();
   }
 
@@ -43,55 +38,6 @@ class _TrophyPageState extends State<TrophyPage> {
     trophyData = await dbManager.getTrophyData(widget.gameName);
     checklistManager = new ChecklistManager(noOfElements: trophyData[0].length);
     checklistManager.buildList();
-  }
-
-  void addGameToFirestore() async {
-    FirebaseUser currentUser = await _auth.currentUser();
-    String emailId = await currentUser.email;
-    int noOfTrophies = checklistManager.isSwitcher.length;
-
-    _firestore.collection('trophies').add({
-      'emailId': emailId,
-      'gameName': widget.gameName,
-      'noOfTrophiesAchieved': 0,
-      'totalNoOfTrophies': noOfTrophies,
-      'trophiesAchieved': checklistManager.isSwitcher,
-    });
-  }
-
-  void deleteGameFromFirestore() async {
-    FirebaseUser currentUser = await _auth.currentUser();
-    String emailId = await currentUser.email;
-    _firestore
-        .collection('trophies')
-        .where('emailId', isEqualTo: emailId)
-        .snapshots()
-        .listen((event) {
-      for (var snapshot in event.documents) {
-        if (snapshot.data['gameName'] == widget.gameName) {
-          snapshot.reference.delete();
-          print('Deleted ${widget.gameName}');
-        }
-      }
-    });
-  }
-
-  void updateGameFromFirebase() async {
-    FirebaseUser currentUser = await _auth.currentUser();
-    String emailId = currentUser.email;
-
-    _firestore
-        .collection('trophies')
-        .where('emailId', isEqualTo: emailId)
-        .snapshots()
-        .listen((event) {
-      for (var snapshot in event.documents) {
-        snapshot.reference.updateData({
-          'trophiesAchieved': checklistManager.isSwitcher,
-          'noOfTrophiesAchieved': achievedTrophies,
-        });
-      }
-    });
   }
 
   @override
@@ -126,10 +72,10 @@ class _TrophyPageState extends State<TrophyPage> {
                 setState(() {
                   if (gameAdded == 0) {
                     gameAdded = 1;
-                    addGameToFirestore();
+                    //addGameToFirestore();
                   } else {
                     gameAdded = 0;
-                    deleteGameFromFirestore();
+                    //deleteGameFromFirestore();
                   }
                 });
               },
@@ -209,7 +155,7 @@ class _TrophyPageState extends State<TrophyPage> {
                                     } else {
                                       achievedTrophies--;
                                     }
-                                    updateGameFromFirebase();
+                                    //updateGameFromFirebase();
                                     print(checklistManager.isSwitcher);
                                   });
                                 },
@@ -248,3 +194,52 @@ class _TrophyPageState extends State<TrophyPage> {
     );
   }
 }
+
+/**void addGameToFirestore() async {
+    FirebaseUser currentUser = await _auth.currentUser();
+    String emailId = await currentUser.email;
+    int noOfTrophies = checklistManager.isSwitcher.length;
+
+    _firestore.collection('trophies').add({
+    'emailId': emailId,
+    'gameName': widget.gameName,
+    'noOfTrophiesAchieved': 0,
+    'totalNoOfTrophies': noOfTrophies,
+    'trophiesAchieved': checklistManager.isSwitcher,
+    });
+    }
+
+    void deleteGameFromFirestore() async {
+    FirebaseUser currentUser = await _auth.currentUser();
+    String emailId = await currentUser.email;
+    _firestore
+    .collection('trophies')
+    .where('emailId', isEqualTo: emailId)
+    .snapshots()
+    .listen((event) {
+    for (var snapshot in event.documents) {
+    if (snapshot.data['gameName'] == widget.gameName) {
+    snapshot.reference.delete();
+    print('Deleted ${widget.gameName}');
+    }
+    }
+    });
+    }
+
+    void updateGameFromFirebase() async {
+    FirebaseUser currentUser = await _auth.currentUser();
+    String emailId = currentUser.email;
+
+    _firestore
+    .collection('trophies')
+    .where('emailId', isEqualTo: emailId)
+    .snapshots()
+    .listen((event) {
+    for (var snapshot in event.documents) {
+    snapshot.reference.updateData({
+    'trophiesAchieved': checklistManager.isSwitcher,
+    'noOfTrophiesAchieved': achievedTrophies,
+    });
+    }
+    });
+    }**/
