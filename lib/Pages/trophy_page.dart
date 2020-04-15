@@ -173,6 +173,7 @@ class _TrophyPageState extends State<TrophyPage> {
                                     }
                                     internalDbManager.updateCheckList(
                                         checklistManager.isSwitcher,
+                                        achievedTrophies,
                                         widget.gameName);
                                     //updateGameFromFirebase();
                                     print(checklistManager.isSwitcher);

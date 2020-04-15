@@ -58,11 +58,12 @@ class Internal_Database_Manager {
         'DELETE FROM $tableName WHERE $gameNameColumn = "$gameName"');
   }
 
-  void updateCheckList(List<bool> newCheckList, String gameName) async {
+  void updateCheckList(List<bool> newCheckList, int noOfAchievedTrophies,
+      String gameName) async {
     String encodedChecklist = await listEncoder(newCheckList);
     var dbClient = await db;
     var result = await dbClient.rawUpdate(
-        'UPDATE $tableName SET $achivedTrophyListColumn = "$encodedChecklist" WHERE $gameNameColumn = "$gameName"');
+        'UPDATE $tableName SET $achivedTrophyListColumn = "$encodedChecklist" , $noOfAchievedTrophyColumn = "$noOfAchievedTrophies" WHERE $gameNameColumn = "$gameName"');
     print(result);
   }
 
