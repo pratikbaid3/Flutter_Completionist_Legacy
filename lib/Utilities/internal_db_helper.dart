@@ -39,7 +39,7 @@ class Internal_Database_Manager {
   void _onCreate(Database db, int newVersion) async {
     print('Entered onCreate db');
     await db.execute(
-        'CREATE TABLE $tableName($gameNameColumn TEXT PRIMARY KEY, $achivedTrophyListColumn TEXT, $noOfAchievedTrophyColumn INTEGER, $totalTrophyColumn INTEGER)');
+        'CREATE TABLE $tableName($gameNameColumn TEXT PRIMARY KEY UNIQUE, $achivedTrophyListColumn TEXT, $noOfAchievedTrophyColumn INTEGER, $totalTrophyColumn INTEGER)');
   }
 
   void addGameToDb(String gameName, List<bool> trophyList,
@@ -50,6 +50,30 @@ class Internal_Database_Manager {
         'INSERT INTO $tableName($gameNameColumn, $achivedTrophyListColumn, $noOfAchievedTrophyColumn,$totalTrophyColumn) '
         'VALUES("$gameName","$encodedTrophyList","$noOfAchievedTrophies","$totalNumberOfTrophies")');
     print(result);
+  }
+
+  void deleteGameFromDb(String gameName) async {
+    var dbClient = await db;
+    var result = await dbClient.rawDelete(
+        'DELETE FROM $tableName WHERE $gameNameColumn = "$gameName"');
+  }
+
+  void updateCheckList(List<bool> newCheckList, String gameName) async {
+    String encodedChecklist = await listEncoder(newCheckList);
+    var dbClient = await db;
+    var result = await dbClient.rawUpdate(
+        'UPDATE $tableName SET $achivedTrophyListColumn = "$encodedChecklist" WHERE $gameNameColumn = "$gameName"');
+    print(result);
+  }
+
+  Future<List<bool>> checkIfGameIsAdded(String gameName) async {
+    var dbClient = await db;
+    List<Map> result = await dbClient.rawQuery(
+        'SELECT * FROM $tableName WHERE $gameNameColumn = "$gameName"');
+    if (result.length > 0) {
+      return (listDecoder(result[0]['$achivedTrophyListColumn']));
+    }
+    return [false];
   }
 
   Future<List<bool>> listDecoder(String encoded) async {

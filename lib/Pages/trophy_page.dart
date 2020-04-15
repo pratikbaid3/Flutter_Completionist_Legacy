@@ -39,6 +39,16 @@ class _TrophyPageState extends State<TrophyPage> {
     trophyData = await externalDbManager.getTrophyData(widget.gameName);
     checklistManager = new ChecklistManager(noOfElements: trophyData[0].length);
     checklistManager.buildList();
+    var achievedTrophyChecklist =
+        await internalDbManager.checkIfGameIsAdded(widget.gameName);
+    setState(() {
+      if (achievedTrophyChecklist.length == 1) {
+        gameAdded = 0;
+      } else {
+        gameAdded = 1;
+        checklistManager.isSwitcher = achievedTrophyChecklist;
+      }
+    });
   }
 
   @override
@@ -73,7 +83,7 @@ class _TrophyPageState extends State<TrophyPage> {
                 setState(() {
                   if (gameAdded == 0) {
                     gameAdded = 1;
-                    //addGameToFirestore();
+
                     internalDbManager.addGameToDb(
                         widget.gameName,
                         checklistManager.isSwitcher,
@@ -81,8 +91,7 @@ class _TrophyPageState extends State<TrophyPage> {
                         checklistManager.isSwitcher.length);
                   } else {
                     gameAdded = 0;
-                    internalDbManager.deleteDB();
-                    //deleteGameFromFirestore();
+                    internalDbManager.deleteGameFromDb(widget.gameName);
                   }
                 });
               },
@@ -162,6 +171,9 @@ class _TrophyPageState extends State<TrophyPage> {
                                     } else {
                                       achievedTrophies--;
                                     }
+                                    internalDbManager.updateCheckList(
+                                        checklistManager.isSwitcher,
+                                        widget.gameName);
                                     //updateGameFromFirebase();
                                     print(checklistManager.isSwitcher);
                                   });
@@ -201,52 +213,3 @@ class _TrophyPageState extends State<TrophyPage> {
     );
   }
 }
-
-/**void addGameToFirestore() async {
-    FirebaseUser currentUser = await _auth.currentUser();
-    String emailId = await currentUser.email;
-    int noOfTrophies = checklistManager.isSwitcher.length;
-
-    _firestore.collection('trophies').add({
-    'emailId': emailId,
-    'gameName': widget.gameName,
-    'noOfTrophiesAchieved': 0,
-    'totalNoOfTrophies': noOfTrophies,
-    'trophiesAchieved': checklistManager.isSwitcher,
-    });
-    }
-
-    void deleteGameFromFirestore() async {
-    FirebaseUser currentUser = await _auth.currentUser();
-    String emailId = await currentUser.email;
-    _firestore
-    .collection('trophies')
-    .where('emailId', isEqualTo: emailId)
-    .snapshots()
-    .listen((event) {
-    for (var snapshot in event.documents) {
-    if (snapshot.data['gameName'] == widget.gameName) {
-    snapshot.reference.delete();
-    print('Deleted ${widget.gameName}');
-    }
-    }
-    });
-    }
-
-    void updateGameFromFirebase() async {
-    FirebaseUser currentUser = await _auth.currentUser();
-    String emailId = currentUser.email;
-
-    _firestore
-    .collection('trophies')
-    .where('emailId', isEqualTo: emailId)
-    .snapshots()
-    .listen((event) {
-    for (var snapshot in event.documents) {
-    snapshot.reference.updateData({
-    'trophiesAchieved': checklistManager.isSwitcher,
-    'noOfTrophiesAchieved': achievedTrophies,
-    });
-    }
-    });
-    }**/
