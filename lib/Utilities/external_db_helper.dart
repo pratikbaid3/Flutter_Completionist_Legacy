@@ -83,7 +83,7 @@ class External_Database_Manager {
       }
       trophyData.add(trophyName);
       trophyData.add(trophyDescription);
-      trophyData.add(trophyType);
+      trophyData.add(trophyType); //1=Platinum 2=Gold 3=Silver 4=Bronze
       trophyData.add(trophyIconLink);
     }
 

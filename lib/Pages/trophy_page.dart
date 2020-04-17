@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/external_db_helper.dart';
 import '../Utilities/reusable_elements.dart';
@@ -49,6 +50,32 @@ class _TrophyPageState extends State<TrophyPage> {
         checklistManager.isSwitcher = achievedTrophyChecklist;
       }
     });
+    print(trophyData[2][0]);
+  }
+
+  Widget trophyType(index) {
+    String platinum = '1';
+    String gold = '2';
+    String silver = '3';
+    String bronze = '4';
+    if (trophyData[2][index] == platinum || trophyData[2][index] == gold) {
+      return Icon(
+        LineAwesomeIcons.trophy,
+        color: Color(0xffD4AF37),
+        size: 40,
+      );
+    } else if (trophyData[2][index] == silver) {
+      return Icon(
+        LineAwesomeIcons.trophy,
+        color: Color(0xffC0C0C0),
+        size: 40,
+      );
+    }
+    return Icon(
+      LineAwesomeIcons.trophy,
+      color: Color(0xffb08d57),
+      size: 40,
+    );
   }
 
   @override
@@ -144,17 +171,26 @@ class _TrophyPageState extends State<TrophyPage> {
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 10.0),
                               leading: Container(
-                                  padding: EdgeInsets.only(right: 12.0),
-                                  decoration: new BoxDecoration(
-                                      border: new Border(
-                                          right: new BorderSide(
-                                              width: 1.0,
-                                              color: Colors.white24))),
-                                  child: Image(
-                                    width: 90,
-                                    height: 90,
-                                    image: NetworkImage(trophyData[3][index]),
-                                  )),
+                                padding: EdgeInsets.only(right: 12.0),
+                                decoration: new BoxDecoration(
+                                    border: new Border(
+                                        right: new BorderSide(
+                                            width: 1.0,
+                                            color: Colors.white24))),
+                                child: NeuCard(
+                                    curveType: CurveType.flat,
+                                    bevel: 8,
+                                    decoration: NeumorphicDecoration(
+                                      color: accentColor,
+                                    ),
+                                    child: SizedBox(
+                                      child: Center(
+                                        child: trophyType(index),
+                                      ),
+                                      height: 55,
+                                      width: 55,
+                                    )),
+                              ),
                               title: Text(
                                 '${trophyData[0][index]}',
                                 style: TextStyle(

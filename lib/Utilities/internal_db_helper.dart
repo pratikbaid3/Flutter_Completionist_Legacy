@@ -13,7 +13,6 @@ class Internal_Database_Manager {
   static Database _db;
 
   Future<Database> get db async {
-    print("Entered get db");
     if (_db != null) {
       return _db;
     }
@@ -22,7 +21,6 @@ class Internal_Database_Manager {
   }
 
   initDb() async {
-    print('Entered init db');
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, dbName);
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
@@ -30,14 +28,12 @@ class Internal_Database_Manager {
   }
 
   void deleteDB() async {
-    print('Entered deleteDatabase');
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, dbName);
     await deleteDatabase(path);
   }
 
   void _onCreate(Database db, int newVersion) async {
-    print('Entered onCreate db');
     await db.execute(
         'CREATE TABLE $tableName($gameNameColumn TEXT PRIMARY KEY UNIQUE, $achivedTrophyListColumn TEXT, $noOfAchievedTrophyColumn INTEGER, $totalTrophyColumn INTEGER)');
   }
