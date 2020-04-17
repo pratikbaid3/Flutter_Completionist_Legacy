@@ -9,6 +9,7 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,12 +18,37 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  int gold = 0;
+  int silver = 0;
+  int bronze = 0;
+
   bool _visibilityGold = true;
   bool _visibilitySilver = true;
   bool _visibilityBronze = true;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setTrophyState();
+  }
+
+  void setTrophyState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int goldShared = (prefs.getInt('gold') ?? 0);
+    int silverShared = (prefs.getInt('silver') ?? 0);
+    int bronzeShared = (prefs.getInt('bronze') ?? 0);
+
+    setState(() {
+      gold = goldShared;
+      silver = silverShared;
+      bronze = bronzeShared;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    setTrophyState();
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
@@ -350,7 +376,7 @@ class _HomePageState extends State<HomePage> {
                                   duration: Duration(milliseconds: 500),
                                   child: Center(
                                       child: Text(
-                                    '10',
+                                    gold.toString(),
                                     style: TextStyle(
                                       fontSize: 30,
                                       fontFamily: 'Rammetto',
@@ -403,7 +429,7 @@ class _HomePageState extends State<HomePage> {
                                   duration: Duration(milliseconds: 500),
                                   child: Center(
                                       child: Text(
-                                    '26',
+                                    silver.toString(),
                                     style: TextStyle(
                                       fontSize: 30,
                                       fontFamily: 'Rammetto',
@@ -456,7 +482,7 @@ class _HomePageState extends State<HomePage> {
                                   duration: Duration(milliseconds: 500),
                                   child: Center(
                                       child: Text(
-                                    '18',
+                                    bronze.toString(),
                                     style: TextStyle(
                                       fontSize: 30,
                                       fontFamily: 'Rammetto',

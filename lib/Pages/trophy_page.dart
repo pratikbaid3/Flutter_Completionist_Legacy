@@ -7,6 +7,7 @@ import '../Utilities/external_db_helper.dart';
 import '../Utilities/reusable_elements.dart';
 import '../Utilities/checklist_helper.dart';
 import '../Utilities/internal_db_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TrophyPage extends StatefulWidget {
   TrophyPage({this.gameName, this.gameImageIcon});
@@ -76,6 +77,47 @@ class _TrophyPageState extends State<TrophyPage> {
       color: Color(0xffb08d57),
       size: 40,
     );
+  }
+
+  void saveSharedPreferences(index, type) async {
+    String platinum = '1';
+    String gold = '2';
+    String silver = '3';
+    if (type == 'add') {
+      if (trophyData[2][index] == platinum || trophyData[2][index] == gold) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int gold = (prefs.getInt('gold') ?? 0) + 1;
+        print('Total gold $gold ');
+        await prefs.setInt('gold', gold);
+      } else if (trophyData[2][index] == silver) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int silver = (prefs.getInt('silver') ?? 0) + 1;
+        print('Total silver $silver ');
+        await prefs.setInt('silver', silver);
+      } else {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int bronze = (prefs.getInt('bronze') ?? 0) + 1;
+        print('Total bronze $bronze');
+        await prefs.setInt('bronze', bronze);
+      }
+    } else {
+      if (trophyData[2][index] == platinum || trophyData[2][index] == gold) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int gold = (prefs.getInt('gold') ?? 0) - 1;
+        print('Total gold $gold');
+        await prefs.setInt('gold', gold);
+      } else if (trophyData[2][index] == silver) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int silver = (prefs.getInt('silver') ?? 0) - 1;
+        print('Total silver $silver');
+        await prefs.setInt('silver', silver);
+      } else {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int bronze = (prefs.getInt('bronze') ?? 0) - 1;
+        print('Total bronze $bronze');
+        await prefs.setInt('bronze', bronze);
+      }
+    }
   }
 
   @override
@@ -204,8 +246,10 @@ class _TrophyPageState extends State<TrophyPage> {
                                     checklistManager.isSwitcher[index] = value;
                                     if (value) {
                                       achievedTrophies++;
+                                      saveSharedPreferences(index, 'add');
                                     } else {
                                       achievedTrophies--;
+                                      saveSharedPreferences(index, 'remove');
                                     }
                                     internalDbManager.updateCheckList(
                                         checklistManager.isSwitcher,
