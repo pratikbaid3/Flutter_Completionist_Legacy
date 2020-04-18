@@ -87,34 +87,31 @@ class _TrophyPageState extends State<TrophyPage> {
       if (trophyData[2][index] == platinum || trophyData[2][index] == gold) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int gold = (prefs.getInt('gold') ?? 0) + 1;
-        print('Total gold $gold ');
         await prefs.setInt('gold', gold);
       } else if (trophyData[2][index] == silver) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int silver = (prefs.getInt('silver') ?? 0) + 1;
-        print('Total silver $silver ');
         await prefs.setInt('silver', silver);
       } else {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int bronze = (prefs.getInt('bronze') ?? 0) + 1;
-        print('Total bronze $bronze');
+
         await prefs.setInt('bronze', bronze);
       }
     } else {
       if (trophyData[2][index] == platinum || trophyData[2][index] == gold) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int gold = (prefs.getInt('gold') ?? 0) - 1;
-        print('Total gold $gold');
+
         await prefs.setInt('gold', gold);
       } else if (trophyData[2][index] == silver) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int silver = (prefs.getInt('silver') ?? 0) - 1;
-        print('Total silver $silver');
+
         await prefs.setInt('silver', silver);
       } else {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int bronze = (prefs.getInt('bronze') ?? 0) - 1;
-        print('Total bronze $bronze');
         await prefs.setInt('bronze', bronze);
       }
     }

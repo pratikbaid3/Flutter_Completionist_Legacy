@@ -99,240 +99,45 @@ class _HomePageState extends State<HomePage> {
                   enlargeCenterPage: true,
                   pauseAutoPlayOnTouch: Duration(seconds: 2),
                   items: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                      child: SlimyCard(
-                        color: accentColor,
-                        width: 350,
-                        topCardHeight: 250,
-                        bottomCardHeight: 100,
-                        borderRadius: 10,
-                        topCardWidget: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: GestureDetector(
-                            onTap: () {
-                              print("Go to the trophy page");
-                            },
-                            child: NeuCard(
-                              curveType: CurveType.flat,
-                              bevel: 12,
-                              decoration: NeumorphicDecoration(
-                                color: accentColor,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(12),
-                                child: Card(
-                                  child: Image(
-                                    image: NetworkImage(
-                                        "https://www.playstationtrophies.org/images/trophies/4673/ico.png"),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        bottomCardWidget: Card(
-                          child: SizedBox(
-                            height: 40,
-                            child: LiquidLinearProgressIndicator(
-                              value: 0.6, // Defaults to 0.5.
-                              valueColor: AlwaysStoppedAnimation(Color(
-                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
-                              backgroundColor:
-                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
-                              borderRadius: 4.0,
-                              direction: Axis
-                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
-                              center: Text("60%"),
-                            ),
-                          ),
-                        ),
-                        slimeEnabled: true,
-                      ),
+                    kSlimyReusableCard(
+                      imageLink:
+                          "https://www.playstationtrophies.org/images/trophies/5857/ico.png",
+                      completionPercentage: 0.6,
+                      goToTrophyPage: () {
+                        print("Go to trophy page");
+                      },
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                      child: SlimyCard(
-                        color: accentColor,
-                        width: 350,
-                        topCardHeight: 250,
-                        bottomCardHeight: 100,
-                        borderRadius: 10,
-                        topCardWidget: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: NeuCard(
-                            curveType: CurveType.flat,
-                            bevel: 12,
-                            decoration: NeumorphicDecoration(
-                              color: accentColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Card(
-                                child: Image(
-                                  image: NetworkImage(
-                                      "https://www.playstationtrophies.org/images/trophies/5857/ico.png"),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        bottomCardWidget: Card(
-                          child: SizedBox(
-                            height: 40,
-                            child: LiquidLinearProgressIndicator(
-                              value: 0.6, // Defaults to 0.5.
-                              valueColor: AlwaysStoppedAnimation(Color(
-                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
-                              backgroundColor:
-                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
-                              borderRadius: 4.0,
-                              direction: Axis
-                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
-                              center: Text("60%"),
-                            ),
-                          ),
-                        ),
-                        slimeEnabled: true,
-                      ),
+                    kSlimyReusableCard(
+                      imageLink:
+                          "https://www.playstationtrophies.org/images/trophies/7475/ico.png",
+                      completionPercentage: 0.6,
+                      goToTrophyPage: () {
+                        print("Go to trophy page");
+                      },
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                      child: SlimyCard(
-                        color: accentColor,
-                        width: 350,
-                        topCardHeight: 250,
-                        bottomCardHeight: 100,
-                        borderRadius: 10,
-                        topCardWidget: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: NeuCard(
-                            curveType: CurveType.flat,
-                            bevel: 12,
-                            decoration: NeumorphicDecoration(
-                              color: accentColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Card(
-                                child: Image(
-                                  image: NetworkImage(
-                                      "https://www.playstationtrophies.org/images/trophies/7475/ico.png"),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        bottomCardWidget: Card(
-                          child: SizedBox(
-                            height: 40,
-                            child: LiquidLinearProgressIndicator(
-                              value: 0.6, // Defaults to 0.5.
-                              valueColor: AlwaysStoppedAnimation(Color(
-                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
-                              backgroundColor:
-                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
-                              borderRadius: 4.0,
-                              direction: Axis
-                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
-                              center: Text("60%"),
-                            ),
-                          ),
-                        ),
-                        slimeEnabled: true,
-                      ),
+                    kSlimyReusableCard(
+                      imageLink:
+                          "https://www.playstationtrophies.org/images/trophies/4946/ico.png",
+                      completionPercentage: 0.6,
+                      goToTrophyPage: () {
+                        print("Go to trophy page");
+                      },
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                      child: SlimyCard(
-                        color: accentColor,
-                        width: 350,
-                        topCardHeight: 250,
-                        bottomCardHeight: 100,
-                        borderRadius: 10,
-                        topCardWidget: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: NeuCard(
-                            curveType: CurveType.flat,
-                            bevel: 12,
-                            decoration: NeumorphicDecoration(
-                              color: accentColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Card(
-                                child: Image(
-                                  image: NetworkImage(
-                                      "https://www.playstationtrophies.org/images/trophies/4946/ico.png"),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        bottomCardWidget: Card(
-                          child: SizedBox(
-                            height: 40,
-                            child: LiquidLinearProgressIndicator(
-                              value: 0.6, // Defaults to 0.5.
-                              valueColor: AlwaysStoppedAnimation(Color(
-                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
-                              backgroundColor:
-                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
-                              borderRadius: 4.0,
-                              direction: Axis
-                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
-                              center: Text("60%"),
-                            ),
-                          ),
-                        ),
-                        slimeEnabled: true,
-                      ),
+                    kSlimyReusableCard(
+                      imageLink:
+                          "https://www.playstationtrophies.org/images/trophies/4708/ico.png",
+                      completionPercentage: 0.6,
+                      goToTrophyPage: () {
+                        print("Go to trophy page");
+                      },
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 40, left: 2, right: 2),
-                      child: SlimyCard(
-                        color: accentColor,
-                        width: 350,
-                        topCardHeight: 250,
-                        bottomCardHeight: 100,
-                        borderRadius: 10,
-                        topCardWidget: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: NeuCard(
-                            curveType: CurveType.flat,
-                            bevel: 12,
-                            decoration: NeumorphicDecoration(
-                              color: accentColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Card(
-                                child: Image(
-                                  image: NetworkImage(
-                                      "https://www.playstationtrophies.org/images/trophies/4708/ico.png"),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        bottomCardWidget: Card(
-                          child: SizedBox(
-                            height: 40,
-                            child: LiquidLinearProgressIndicator(
-                              value: 0.6, // Defaults to 0.5.
-                              valueColor: AlwaysStoppedAnimation(Color(
-                                  0xff67D7A1)), // Defaults to the current Theme's accentColor.
-                              backgroundColor:
-                                  backgroundColor, // Defaults to the current Theme's backgroundColor.
-                              borderRadius: 4.0,
-                              direction: Axis
-                                  .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
-                              center: Text("60%"),
-                            ),
-                          ),
-                        ),
-                        slimeEnabled: true,
-                      ),
+                    kSlimyReusableCard(
+                      imageLink:
+                          "https://www.playstationtrophies.org/images/trophies/5857/ico.png",
+                      completionPercentage: 0.6,
+                      goToTrophyPage: () {
+                        print("Go to trophy page");
+                      },
                     ),
                   ]),
             ),
