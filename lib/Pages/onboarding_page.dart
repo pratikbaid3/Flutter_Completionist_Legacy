@@ -31,11 +31,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                      /**child: FlareActor("assets/anim.flr",
+                    child: FlareActor("assets/anim.flr",
                         alignment: Alignment.center,
                         fit: BoxFit.contain,
-                        animation: "idle"),**/
-                      ),
+                        animation: "idle"),
+                  ),
                 ),
                 Row(
                   children: <Widget>[

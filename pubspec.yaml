@@ -32,6 +32,7 @@ dependencies:
   awesome_button: ^1.0.2
   font_awesome_flutter: ^8.7.0
   shared_preferences: ^0.5.6+3
+  loading_indicator: ^1.1.0
 
   material_design_icons_flutter: ^4.0.5045
   flappy_search_bar: 1.4.1

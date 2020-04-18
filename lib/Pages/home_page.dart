@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,6 +8,8 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Utilities/internal_db_helper.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'trophy_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,8 +25,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool _visibilityGold = true;
   bool _visibilitySilver = true;
   bool _visibilityBronze = true;
-
-  List<Widget> carousolItemList = [];
 
   Internal_Database_Manager internalDbManager;
 
@@ -49,7 +50,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
-  void getAddedGamesForTheCarousol() async {
+  Future<List<Widget>> getAddedGamesForTheCarousol() async {
+    List<Widget> carousolItemList = [];
     List<Map> internalAddedGame = await internalDbManager.getAllGamesAdded();
     for (var data in internalAddedGame) {
       double completePercentage =
@@ -58,13 +60,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         imageLink: data['GameIconImageLink'],
         completionPercentage: completePercentage,
         goToTrophyPage: () {
-          print("Go to trophy page");
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return TrophyPage(
+                gameName: data['GameName'],
+                gameImageIcon: data['GameIconImageLink']);
+          }));
         },
       );
       setState(() {
         carousolItemList.add(slimyReusableCard);
       });
     }
+    return carousolItemList;
   }
 
   @override
@@ -109,21 +116,52 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           ),
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 40),
-              child: CarouselSlider(
-                viewportFraction: 0.9,
-                aspectRatio: 2.0,
-                autoPlay: true,
-                height: 530,
-                enlargeCenterPage: true,
-                pauseAutoPlayOnTouch: Duration(seconds: 2),
-                items: carousolItemList,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(top: 40),
+                child: FutureBuilder(
+                  future: getAddedGamesForTheCarousol(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Widget> list = snapshot.data;
+                      if (list.length == 0) {
+                        return SizedBox(
+                          height: 300,
+                          width: 300,
+                          child: LoadingIndicator(
+                            indicatorType: Indicator.pacman,
+                            color: accentColor,
+                          ),
+                        );
+                      } else {
+                        return CarouselSlider(
+                          viewportFraction: 0.9,
+                          aspectRatio: 2.0,
+                          autoPlay: true,
+                          height: 530,
+                          enlargeCenterPage: true,
+                          pauseAutoPlayOnTouch: Duration(seconds: 2),
+                          items: snapshot.data,
+                        );
+                      }
+                    } else {
+                      return SizedBox(
+                        height: 300,
+                        width: 300,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.pacman,
+                          color: accentColor,
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 0),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
