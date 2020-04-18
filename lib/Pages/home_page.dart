@@ -1,22 +1,19 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:slimy_card/slimy_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/reusable_elements.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../Utilities/internal_db_helper.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   int gold = 0;
   int silver = 0;
@@ -26,11 +23,17 @@ class _HomePageState extends State<HomePage> {
   bool _visibilitySilver = true;
   bool _visibilityBronze = true;
 
+  List<Widget> carousolItemList = [];
+
+  Internal_Database_Manager internalDbManager;
+
   @override
   void initState() {
+    internalDbManager = new Internal_Database_Manager();
+    setTrophyState();
+    getAddedGamesForTheCarousol();
     // TODO: implement initState
     super.initState();
-    setTrophyState();
   }
 
   void setTrophyState() async {
@@ -44,6 +47,24 @@ class _HomePageState extends State<HomePage> {
       silver = silverShared;
       bronze = bronzeShared;
     });
+  }
+
+  void getAddedGamesForTheCarousol() async {
+    List<Map> internalAddedGame = await internalDbManager.getAllGamesAdded();
+    for (var data in internalAddedGame) {
+      double completePercentage =
+          data['NoOfAchievedTrophy'] / data['TotalTrophy'];
+      Widget slimyReusableCard = kSlimyReusableCard(
+        imageLink: data['GameIconImageLink'],
+        completionPercentage: completePercentage,
+        goToTrophyPage: () {
+          print("Go to trophy page");
+        },
+      );
+      setState(() {
+        carousolItemList.add(slimyReusableCard);
+      });
+    }
   }
 
   @override
@@ -92,54 +113,14 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.only(top: 40),
               child: CarouselSlider(
-                  viewportFraction: 0.9,
-                  aspectRatio: 2.0,
-                  autoPlay: true,
-                  height: 530,
-                  enlargeCenterPage: true,
-                  pauseAutoPlayOnTouch: Duration(seconds: 2),
-                  items: [
-                    kSlimyReusableCard(
-                      imageLink:
-                          "https://www.playstationtrophies.org/images/trophies/5857/ico.png",
-                      completionPercentage: 0.6,
-                      goToTrophyPage: () {
-                        print("Go to trophy page");
-                      },
-                    ),
-                    kSlimyReusableCard(
-                      imageLink:
-                          "https://www.playstationtrophies.org/images/trophies/7475/ico.png",
-                      completionPercentage: 0.6,
-                      goToTrophyPage: () {
-                        print("Go to trophy page");
-                      },
-                    ),
-                    kSlimyReusableCard(
-                      imageLink:
-                          "https://www.playstationtrophies.org/images/trophies/4946/ico.png",
-                      completionPercentage: 0.6,
-                      goToTrophyPage: () {
-                        print("Go to trophy page");
-                      },
-                    ),
-                    kSlimyReusableCard(
-                      imageLink:
-                          "https://www.playstationtrophies.org/images/trophies/4708/ico.png",
-                      completionPercentage: 0.6,
-                      goToTrophyPage: () {
-                        print("Go to trophy page");
-                      },
-                    ),
-                    kSlimyReusableCard(
-                      imageLink:
-                          "https://www.playstationtrophies.org/images/trophies/5857/ico.png",
-                      completionPercentage: 0.6,
-                      goToTrophyPage: () {
-                        print("Go to trophy page");
-                      },
-                    ),
-                  ]),
+                viewportFraction: 0.9,
+                aspectRatio: 2.0,
+                autoPlay: true,
+                height: 530,
+                enlargeCenterPage: true,
+                pauseAutoPlayOnTouch: Duration(seconds: 2),
+                items: carousolItemList,
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(left: 10, right: 10, top: 0),
@@ -158,7 +139,6 @@ class _HomePageState extends State<HomePage> {
                         child: SizedBox(
                           child: GestureDetector(
                             onTap: () {
-                              print("Change Opacity");
                               setState(() {
                                 _visibilityGold = !_visibilityGold;
                               });
@@ -211,7 +191,6 @@ class _HomePageState extends State<HomePage> {
                         child: SizedBox(
                           child: GestureDetector(
                             onTap: () {
-                              print("Change Opacity");
                               setState(() {
                                 _visibilitySilver = !_visibilitySilver;
                               });
@@ -264,7 +243,6 @@ class _HomePageState extends State<HomePage> {
                         child: SizedBox(
                           child: GestureDetector(
                             onTap: () {
-                              print("Change Opacity");
                               setState(() {
                                 _visibilityBronze = !_visibilityBronze;
                               });

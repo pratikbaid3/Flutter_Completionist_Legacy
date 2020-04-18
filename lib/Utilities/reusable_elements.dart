@@ -206,8 +206,8 @@ class kSlimyReusableCardState extends State<kSlimyReusableCard> {
               borderRadius: 4.0,
               direction: Axis
                   .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
-              center:
-                  Text("${(widget.completionPercentage * 100).toString()}%"),
+              center: Text(
+                  "${((widget.completionPercentage * 100).round()).toString()}%"),
             ),
           ),
         ),

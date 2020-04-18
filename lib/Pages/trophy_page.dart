@@ -151,10 +151,12 @@ class _TrophyPageState extends State<TrophyPage> {
                     gameAdded = 1;
 
                     internalDbManager.addGameToDb(
-                        widget.gameName,
-                        checklistManager.isSwitcher,
-                        0,
-                        checklistManager.isSwitcher.length);
+                      widget.gameName,
+                      checklistManager.isSwitcher,
+                      0,
+                      checklistManager.isSwitcher.length,
+                      widget.gameImageIcon,
+                    );
                   } else {
                     gameAdded = 0;
                     internalDbManager.deleteGameFromDb(widget.gameName);

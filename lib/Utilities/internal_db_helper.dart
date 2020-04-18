@@ -10,6 +10,7 @@ class Internal_Database_Manager {
   final String achivedTrophyListColumn = 'TrophyList';
   final String totalTrophyColumn = 'TotalTrophy';
   final String noOfAchievedTrophyColumn = 'NoOfAchievedTrophy';
+  final String gameIconImageLinkColumn = 'GameIconImageLink';
   static Database _db;
 
   Future<Database> get db async {
@@ -35,16 +36,20 @@ class Internal_Database_Manager {
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(
-        'CREATE TABLE $tableName($gameNameColumn TEXT PRIMARY KEY UNIQUE, $achivedTrophyListColumn TEXT, $noOfAchievedTrophyColumn INTEGER, $totalTrophyColumn INTEGER)');
+        'CREATE TABLE $tableName($gameNameColumn TEXT PRIMARY KEY UNIQUE, $achivedTrophyListColumn TEXT, $noOfAchievedTrophyColumn INTEGER, $totalTrophyColumn INTEGER,$gameIconImageLinkColumn TEXT)');
   }
 
-  void addGameToDb(String gameName, List<bool> trophyList,
-      int noOfAchievedTrophies, int totalNumberOfTrophies) async {
+  void addGameToDb(
+      String gameName,
+      List<bool> trophyList,
+      int noOfAchievedTrophies,
+      int totalNumberOfTrophies,
+      String gameIconLink) async {
     var dbClient = await db; //This calls the getter function
     String encodedTrophyList = await listEncoder(trophyList);
     var result = await dbClient.rawInsert(
-        'INSERT INTO $tableName($gameNameColumn, $achivedTrophyListColumn, $noOfAchievedTrophyColumn,$totalTrophyColumn) '
-        'VALUES("$gameName","$encodedTrophyList","$noOfAchievedTrophies","$totalNumberOfTrophies")');
+        'INSERT INTO $tableName($gameNameColumn, $achivedTrophyListColumn, $noOfAchievedTrophyColumn,$totalTrophyColumn,$gameIconImageLinkColumn) '
+        'VALUES("$gameName","$encodedTrophyList","$noOfAchievedTrophies","$totalNumberOfTrophies","$gameIconLink")');
     print(result);
   }
 
@@ -61,6 +66,12 @@ class Internal_Database_Manager {
     var result = await dbClient.rawUpdate(
         'UPDATE $tableName SET $achivedTrophyListColumn = "$encodedChecklist" , $noOfAchievedTrophyColumn = "$noOfAchievedTrophies" WHERE $gameNameColumn = "$gameName"');
     print(result);
+  }
+
+  Future<List<Map>> getAllGamesAdded() async {
+    var dbClient = await db;
+    var result = await dbClient.rawQuery('SELECT * FROM $tableName');
+    return result.toList();
   }
 
   Future<List<bool>> checkIfGameIsAdded(String gameName) async {

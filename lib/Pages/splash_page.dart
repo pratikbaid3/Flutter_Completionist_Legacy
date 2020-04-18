@@ -39,12 +39,12 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     return Scaffold(
-      body: Center(
+        /**body: Center(
         child: FlareActor("assets/anim.flr",
             alignment: Alignment.center,
             fit: BoxFit.contain,
             animation: "idle"),
-      ),
-    );
+      ),**/
+        );
   }
 }
