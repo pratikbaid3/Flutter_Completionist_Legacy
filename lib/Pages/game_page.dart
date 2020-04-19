@@ -161,11 +161,14 @@ class _GamePageState extends State<GamePage> {
                                           right: new BorderSide(
                                               width: 1.0,
                                               color: Colors.white24))),
-                                  child: Image(
-                                    width: 90,
-                                    height: 90,
-                                    image: NetworkImage(
-                                        gameDetail[filteredGames[index]]),
+                                  child: Hero(
+                                    tag: '${gameDetail[filteredGames[index]]}',
+                                    child: Image(
+                                      width: 90,
+                                      height: 90,
+                                      image: NetworkImage(
+                                          gameDetail[filteredGames[index]]),
+                                    ),
                                   )),
                               title: Text(
                                 '${filteredGames[index]}',

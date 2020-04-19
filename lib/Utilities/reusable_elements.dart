@@ -179,19 +179,41 @@ class kSlimyReusableCardState extends State<kSlimyReusableCard> {
             onTap: widget.goToTrophyPage,
             child: NeuCard(
               curveType: CurveType.flat,
+              bevel: 10,
+              decoration: NeumorphicDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: accentColor,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Hero(
+                  tag: '${widget.imageLink}',
+                  child: Image(
+                    image: NetworkImage(
+                      widget.imageLink,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            /**NeuCard(
+              curveType: CurveType.flat,
               bevel: 12,
               decoration: NeumorphicDecoration(
                 color: accentColor,
               ),
               child: Padding(
                 padding: EdgeInsets.all(12),
-                child: Card(
-                  child: Image(
-                    image: NetworkImage(widget.imageLink),
+                child: Hero(
+                  tag: 'hero',
+                  child: Card(
+                    child: Image(
+                      image: NetworkImage(widget.imageLink),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ),**/
           ),
         ),
         bottomCardWidget: Card(

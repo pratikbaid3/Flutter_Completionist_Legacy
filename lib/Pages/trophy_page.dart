@@ -125,20 +125,24 @@ class _TrophyPageState extends State<TrophyPage> {
           Padding(
             padding: EdgeInsets.only(top: 70, bottom: 30, left: 30, right: 30),
             child: NeuCard(
-                curveType: CurveType.flat,
-                bevel: 10,
-                decoration: NeumorphicDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: backgroundColor,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(20),
+              curveType: CurveType.flat,
+              bevel: 10,
+              decoration: NeumorphicDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: backgroundColor,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Hero(
+                  tag: '${widget.gameImageIcon}',
                   child: Image(
                     image: NetworkImage(
                       widget.gameImageIcon,
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 10),
