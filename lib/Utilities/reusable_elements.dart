@@ -11,7 +11,6 @@ final kHintTextStyle = TextStyle(
   fontFamily: 'OpenSans',
 );
 final kLabelStyle = TextStyle(
-
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
@@ -187,12 +186,9 @@ class kSlimyReusableCardState extends State<kSlimyReusableCard> {
               ),
               child: Padding(
                 padding: EdgeInsets.all(20),
-                child: Hero(
-                  tag: '${widget.imageLink}',
-                  child: Image(
-                    image: NetworkImage(
-                      widget.imageLink,
-                    ),
+                child: Image(
+                  image: NetworkImage(
+                    widget.imageLink,
                   ),
                 ),
               ),
