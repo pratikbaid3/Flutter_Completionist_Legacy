@@ -1,4 +1,4 @@
-"Conpletionist" is a app that tracks in-game progress in PS4 and Xbox One Games. Tracks all the achieved trophies and provides helpful tips and tricks to achieve the test
+"Completionist" is a app that tracks in-game progress in PS4 and Xbox One Games. Tracks all the achieved trophies and provides helpful tips and tricks to achieve the test
 
 Splash Screen:
 
