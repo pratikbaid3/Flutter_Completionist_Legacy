@@ -23,9 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
     try {
       FirebaseUser currentUser = await _auth.currentUser();
       if (currentUser != null) {
-        Navigator.pushNamed(context, '/HomePage');
+        Navigator.popAndPushNamed(context, '/HomePage');
       } else {
-        Navigator.pushNamed(context, '/OnBoardingPage');
+        Navigator.popAndPushNamed(context, '/OnBoardingPage');
       }
     } catch (e) {
       print(e);

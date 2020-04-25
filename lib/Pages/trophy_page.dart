@@ -246,20 +246,26 @@ class _TrophyPageState extends State<TrophyPage> {
                                 value: checklistManager.isSwitcher[index],
                                 onChanged: (value) {
                                   setState(() {
-                                    checklistManager.isSwitcher[index] = value;
-                                    if (value) {
-                                      achievedTrophies++;
-                                      saveSharedPreferences(index, 'add');
+                                    if (gameAdded == 1) {
+                                      checklistManager.isSwitcher[index] =
+                                          value;
+                                      if (value) {
+                                        achievedTrophies++;
+                                        saveSharedPreferences(index, 'add');
+                                      } else {
+                                        achievedTrophies--;
+                                        saveSharedPreferences(index, 'remove');
+                                      }
+                                      internalDbManager.updateCheckList(
+                                          checklistManager.isSwitcher,
+                                          achievedTrophies,
+                                          widget.gameName);
+                                      //updateGameFromFirebase();
+                                      print(checklistManager.isSwitcher);
                                     } else {
-                                      achievedTrophies--;
-                                      saveSharedPreferences(index, 'remove');
+                                      checklistManager.isSwitcher[index] =
+                                          !value;
                                     }
-                                    internalDbManager.updateCheckList(
-                                        checklistManager.isSwitcher,
-                                        achievedTrophies,
-                                        widget.gameName);
-                                    //updateGameFromFirebase();
-                                    print(checklistManager.isSwitcher);
                                   });
                                 },
                                 activeTrackColor: Colors.lightGreenAccent,

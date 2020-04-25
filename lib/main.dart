@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/services.dart';
 import 'package:game_trophy_manager/Pages/login_page.dart';
 import 'package:game_trophy_manager/Pages/signup_page.dart';
 import 'Pages/game_page.dart';
 import 'Pages/onboarding_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'Pages/splash_page.dart';
 import 'Pages/home_page.dart';
 import 'Utilities/reusable_elements.dart';
 
 void main() {
   runApp(OnBoarding());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
 class OnBoarding extends StatelessWidget {

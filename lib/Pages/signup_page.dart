@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../Utilities/reusable_elements.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -139,7 +140,8 @@ class _SignupPageState extends State<SignupPage> {
                               if (newUser != null) {
                                 _signupBtnController.success();
                                 Timer(Duration(seconds: 1), () {
-                                  Navigator.pushNamed(context, '/HomePage');
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, '/HomePage', (route) => false);
                                 });
                               }
                             } catch (e) {
@@ -147,8 +149,26 @@ class _SignupPageState extends State<SignupPage> {
                               Timer(Duration(seconds: 1), () {
                                 _signupBtnController.reset();
                               });
+                              Fluttertoast.showToast(
+                                  msg: "The user already exists",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
                               print(e);
                             }
+                          } else {
+                            Fluttertoast.showToast(
+                                msg: "Passwords dont match",
+                                toastLength: Toast.LENGTH_SHORT,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                            Timer(Duration(seconds: 1), () {
+                              _signupBtnController.reset();
+                            });
                           }
                         },
                       ),

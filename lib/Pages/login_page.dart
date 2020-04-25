@@ -115,7 +115,8 @@ class _LoginPageState extends State<LoginPage> {
                             if (user != null) {
                               _loginBtnController.success();
                               Timer(Duration(seconds: 1), () {
-                                Navigator.pushNamed(context, '/HomePage');
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, '/HomePage', (route) => false);
                               });
                             }
                           } catch (e) {

@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Utilities/internal_db_helper.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'trophy_page.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -96,9 +97,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Padding(
-                child: IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {},
+                child: SizedBox(
+                  height: 0,
+                  width: 0,
                 ),
                 padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
               ),
@@ -107,7 +108,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () {
                     _auth.signOut();
-                    Navigator.pushNamed(context, '/OnBoardingPage');
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/OnBoardingPage', (route) => false);
                   },
                 ),
                 padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
@@ -128,8 +130,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       List<Widget> list = snapshot.data;
                       if (list.length == 0) {
                         return SizedBox(
-                          height: 300,
-                          width: 300,
                           child: LoadingIndicator(
                             indicatorType: Indicator.pacman,
                             color: accentColor,
@@ -148,8 +148,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       }
                     } else {
                       return SizedBox(
-                        height: 300,
-                        width: 300,
                         child: LoadingIndicator(
                           indicatorType: Indicator.pacman,
                           color: accentColor,
