@@ -1,16 +1,13 @@
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/reusable_elements.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Utilities/internal_db_helper.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'trophy_page.dart';
-import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  //final FirebaseAuth _auth = FirebaseAuth.instance;
   int gold = 0;
   int silver = 0;
   int bronze = 0;
@@ -103,7 +100,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 ),
                 padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
               ),
-              Padding(
+              /**Padding(
                 child: IconButton(
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () {
@@ -113,7 +110,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   },
                 ),
                 padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
-              ),
+              ),**/
             ],
           ),
         ),

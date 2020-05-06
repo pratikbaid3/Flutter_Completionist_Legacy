@@ -9,7 +9,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  //FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -21,14 +21,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void getUser() async {
     try {
-      FirebaseUser currentUser = await _auth.currentUser();
+      Navigator.pushNamed(context, '/HomePage');
+      /**FirebaseUser currentUser = await _auth.currentUser();
       if (currentUser != null) {
         Navigator.popAndPushNamed(context, '/HomePage');
       } else {
         Navigator.popAndPushNamed(context, '/OnBoardingPage');
-      }
+      }**/
     } catch (e) {
-      print(e);
+      //print(e);
     }
   }
 
