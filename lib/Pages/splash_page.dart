@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void getUser() async {
     try {
-      Navigator.pushNamed(context, '/HomePage');
+      Navigator.popAndPushNamed(context, '/HomePage');
       /**FirebaseUser currentUser = await _auth.currentUser();
       if (currentUser != null) {
         Navigator.popAndPushNamed(context, '/HomePage');

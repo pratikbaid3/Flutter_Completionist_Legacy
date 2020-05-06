@@ -100,17 +100,20 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 ),
                 padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
               ),
-              /**Padding(
-                child: IconButton(
+              Padding(
+                child: SizedBox(
+                  height: 10,
+                ),
+                /**IconButton(
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () {
                     _auth.signOut();
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/OnBoardingPage', (route) => false);
                   },
-                ),
-                padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
-              ),**/
+                ),**/
+                padding: EdgeInsets.only(top: 30, right: 20, bottom: 10),
+              ),
             ],
           ),
         ),
