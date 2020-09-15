@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     internalDbManager = new Internal_Database_Manager();
     initializeBloc(context);
     setTrophyState();
-    getAddedGamesForTheCarousol();
+//    getAddedGamesForTheCarousol();
     // TODO: implement initState
     super.initState();
   }
@@ -55,30 +55,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       silver = silverShared;
       bronze = bronzeShared;
     });
-  }
-
-  Future<List<Widget>> getAddedGamesForTheCarousol() async {
-    List<Widget> carousolItemList = [];
-    List<Map> internalAddedGame = await internalDbManager.getAllGamesAdded();
-    for (var data in internalAddedGame) {
-      double completePercentage =
-          data['NoOfAchievedTrophy'] / data['TotalTrophy'];
-      Widget slimyReusableCard = kSlimyReusableCard(
-        imageLink: data['GameIconImageLink'],
-        completionPercentage: completePercentage,
-        goToTrophyPage: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return TrophyPage(
-                gameName: data['GameName'],
-                gameImageIcon: data['GameIconImageLink']);
-          }));
-        },
-      );
-      setState(() {
-        carousolItemList.add(slimyReusableCard);
-      });
-    }
-    return carousolItemList;
   }
 
   @override
@@ -152,39 +128,22 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(top: 40),
-                    child: FutureBuilder(
-                      future: getAddedGamesForTheCarousol(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          List<Widget> list = carousolItemList;
-                          if (list.length == 0) {
-                            return SizedBox(
-                              child: LoadingIndicator(
-                                indicatorType: Indicator.pacman,
-                                color: accentColor,
-                              ),
-                            );
-                          } else {
-                            return CarouselSlider(
-                              viewportFraction: 0.9,
-                              aspectRatio: 2.0,
-                              autoPlay: true,
-                              height: 530,
-                              enlargeCenterPage: true,
-                              pauseAutoPlayOnTouch: Duration(seconds: 2),
-                              items: carousolItemList,
-                            );
-                          }
-                        } else {
-                          return SizedBox(
+                    child: (carousolItemList.length == 0)
+                        ? SizedBox(
                             child: LoadingIndicator(
                               indicatorType: Indicator.pacman,
                               color: accentColor,
                             ),
-                          );
-                        }
-                      },
-                    ),
+                          )
+                        : CarouselSlider(
+                            viewportFraction: 0.9,
+                            aspectRatio: 2.0,
+                            autoPlay: true,
+                            height: 530,
+                            enlargeCenterPage: true,
+                            pauseAutoPlayOnTouch: Duration(seconds: 2),
+                            items: carousolItemList,
+                          ),
                   ),
                 ),
                 Padding(
