@@ -13,13 +13,13 @@
 1. Clone the repository from GitHub:
 
 ```bash
-git clone https://github.com/CCExtractor/rutorrent-flutter
+git clone https://github.com/pratikbaid3/PSN_XBOX_TrophyManager
 ```
 
 2. Navigate to project's root directory:
 
 ```bash
-cd rutorrent-flutter
+cd game_trophy_manager
 ```
 
 3. Check for Flutter setup and connected devices:
