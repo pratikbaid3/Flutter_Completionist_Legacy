@@ -4,7 +4,7 @@ abstract class GameEvent extends Equatable {
   const GameEvent();
 }
 
-class GetGameList extends Equatable {
+class GetGameList extends GameEvent {
   @override
   // TODO: implement props
   List<Object> get props => [];

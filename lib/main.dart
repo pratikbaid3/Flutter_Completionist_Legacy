@@ -19,24 +19,24 @@ void main() {
 class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-          primaryColor: backgroundColor,
-          scaffoldBackgroundColor: backgroundColor,
-          accentColor: backgroundColor),
-      home: BlocProvider(
-        create: (context) => GameBloc(GameData()),
-        child: SplashScreen(),
+    return BlocProvider(
+      create: (context) => GameBloc(GameData()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(
+            primaryColor: backgroundColor,
+            scaffoldBackgroundColor: backgroundColor,
+            accentColor: backgroundColor),
+        initialRoute: '/SplashScreen',
+        routes: {
+          '/OnBoardingPage': (context) => OnBoardingPage(),
+          '/SignupPage': (context) => SignupPage(),
+          '/LoginPage': (context) => LoginPage(),
+          '/GamePage': (context) => GamePage(),
+          '/SplashScreen': (context) => SplashScreen(),
+          '/HomePage': (context) => HomePage(),
+        },
       ),
-      routes: {
-        '/OnBoardingPage': (context) => OnBoardingPage(),
-        '/SignupPage': (context) => SignupPage(),
-        '/LoginPage': (context) => LoginPage(),
-        '/GamePage': (context) => GamePage(),
-        '/SplashScreen': (context) => SplashScreen(),
-        '/HomePage': (context) => HomePage(),
-      },
     );
   }
 }

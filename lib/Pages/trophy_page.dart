@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_trophy_manager/BloC/Game/game_bloc.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/external_db_helper.dart';
@@ -150,6 +152,8 @@ class _TrophyPageState extends State<TrophyPage> {
               thumbColor: accentColor,
               backgroundColor: backgroundColor,
               onValueChanged: (val) {
+                final weatherBloc = BlocProvider.of<GameBloc>(context);
+                weatherBloc.add(GetGameList());
                 setState(() {
                   if (gameAdded == 0) {
                     gameAdded = 1;

@@ -8,13 +8,14 @@ abstract class GameDataManager {
 class GameData implements GameDataManager {
   @override
   Future<List<Game>> fetchAddedGames() async {
-    Internal_Database_Manager internalDbManager;
+    Internal_Database_Manager internalDbManager =
+        new Internal_Database_Manager();
     List<Map> internalAddedGame = await internalDbManager.getAllGamesAdded();
     List<Game> addedGames = [];
     for (var data in internalAddedGame) {
       double gameCompletePercentage =
           data['NoOfAchievedTrophy'] / data['TotalTrophy'];
-      String gameName = data['gameName'];
+      String gameName = data['GameName'];
       String gameImageLink = data['GameIconImageLink'];
       Game game = new Game(
           gameName: gameName,
