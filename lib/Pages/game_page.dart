@@ -1,10 +1,7 @@
-import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:neumorphic/neumorphic.dart';
 import '../Utilities/external_db_helper.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Utilities/util_class.dart';
 import 'trophy_page.dart';
 import '../Utilities/reusable_elements.dart';
@@ -15,8 +12,6 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   List<List<String>> items;
   List<String> filteredGames;
   List<String> filteredGamesIcon;
@@ -31,22 +26,8 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     //TODO: implement initState
     super.initState();
-    getCurrentUser();
     dbManager = new External_Database_Manager();
     buildList();
-  }
-
-  void getCurrentUser() async {
-    try {
-      FirebaseUser loggedInUser;
-      final user = await _auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
-        print(loggedInUser.email);
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   Future<void> convertListToMap() {

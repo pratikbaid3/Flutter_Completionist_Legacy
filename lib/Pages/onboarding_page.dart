@@ -3,7 +3,6 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:game_trophy_manager/Pages/login_page.dart';
 import 'package:game_trophy_manager/Pages/signup_page.dart';
 import 'game_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class OnBoardingPage extends StatefulWidget {
   @override
@@ -11,8 +10,6 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   void initState() {
     // TODO: implement initState

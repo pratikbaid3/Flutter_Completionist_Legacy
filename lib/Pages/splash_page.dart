@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../Utilities/external_db_helper.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,7 +8,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  //FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -22,12 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void getUser() async {
     try {
       Navigator.popAndPushNamed(context, '/HomePage');
-      /**FirebaseUser currentUser = await _auth.currentUser();
-      if (currentUser != null) {
-        Navigator.popAndPushNamed(context, '/HomePage');
-      } else {
-        Navigator.popAndPushNamed(context, '/OnBoardingPage');
-      }**/
     } catch (e) {
       //print(e);
     }

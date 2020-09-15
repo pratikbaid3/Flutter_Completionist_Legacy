@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_trophy_manager/Utilities/reusable_elements.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,7 +32,6 @@ class _LoginPageState extends State<LoginPage> {
   String email;
   String password;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 fontSize: 25),
           ),
         ),
-        body: Stack(
+        /**body: Stack(
           children: <Widget>[
             Container(
               height: double.infinity,
@@ -162,6 +160,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ],
-        ));
+        )**/
+    );
   }
 }

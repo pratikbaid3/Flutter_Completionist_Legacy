@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../Utilities/reusable_elements.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -16,24 +15,22 @@ class _SignupPageState extends State<SignupPage> {
   String password;
   String gamerTag;
   String rePassword;
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final RoundedLoadingButtonController _signupBtnController =
       new RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Sign Up',
-            style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.bold,
-                fontSize: 25),
-          ),
+      appBar: AppBar(
+        title: Text(
+          'Sign Up',
+          style: TextStyle(
+              fontFamily: 'OpenSans',
+              fontWeight: FontWeight.bold,
+              fontSize: 25),
         ),
-        body: Stack(
+      ),
+      /**body: Stack(
           children: <Widget>[
             Container(
               height: double.infinity,
@@ -178,6 +175,7 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
           ],
-        ));
+        ),**/
+    );
   }
 }
